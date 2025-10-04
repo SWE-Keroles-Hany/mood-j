@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:moodly_j/core/routes/app_routes.dart';
+import 'package:moodly_j/core/theme/app_theme.dart';
+import 'package:moodly_j/features/on_boarding_screen/presentation/on_boarding_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -7,13 +11,19 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(colorScheme: .fromSeed(seedColor: Colors.deepPurple)),
-      home: Scaffold(appBar: AppBar(title: Text("MoodJ App"))),
+    return ScreenUtilInit(
+      splitScreenMode: true,
+      builder: (context, child) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        initialRoute: OnBoardingScreen.routeName,
+        routes: AppRoutes.routes,
+        theme: AppTheme.lightTheme,
+      ),
+      designSize: Size(360, 640),
+      ensureScreenSize: true,
+      minTextAdapt: true,
     );
   }
 }
