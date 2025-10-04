@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moodly_j/core/theme/app_theme.dart';
+import 'package:moodly_j/features/home/presentation/home_screen.dart';
 
 // ignore: must_be_immutable
 class OnBoardingScreen extends StatelessWidget {
@@ -44,7 +45,11 @@ class OnBoardingScreen extends StatelessWidget {
                   backgroundColor: AppTheme.blue,
                   foregroundColor: AppTheme.black,
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.of(
+                    context,
+                  ).pushReplacementNamed(HomeScreen.routeName);
+                },
                 child: Text(
                   "Get Started",
                   style: textStyle.titleMedium!.copyWith(
