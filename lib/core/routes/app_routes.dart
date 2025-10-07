@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:moodly_j/features/add_mood/presentation/screens/add_mood_screen.dart';
 import 'package:moodly_j/features/home/presentation/home_screen.dart';
 import 'package:moodly_j/features/on_boarding_screen/presentation/on_boarding_screen.dart';
 
 class AppRoutes {
   static Map<String, Widget Function(BuildContext)> routes = {
     OnBoardingScreen.routeName: (context) => OnBoardingScreen(),
+    AddMoodScreen.routeName: (context) => AddMoodScreen(),
+
     HomeScreen.routeName: (context) => HomeScreen(),
   };
 }

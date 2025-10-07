@@ -18,10 +18,16 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        // floatingActionButton: FloatingActionButton(
+        //   backgroundColor: AppTheme.forestGreen,
+        //   shape: CircleBorder(),s
+        //   onPressed: () {},
+        //   child: Icon(Icons.add, size: 35.r, color: AppTheme.white),
+        // ),
         // backgroundColor: AppTheme.blushPink,
         body: tabs[selectedIndex],
         bottomNavigationBar: BottomNavigationBar(
-          backgroundColor: AppTheme.white,
+          backgroundColor: AppTheme.mintGreen,
           selectedItemColor: AppTheme.blueAccent,
           selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
           type: BottomNavigationBarType.fixed,
@@ -35,10 +41,10 @@ class _HomeScreenState extends State<HomeScreen> {
               label: "Home",
               icon: Icon(Icons.home_outlined),
             ),
-            BottomNavigationBarItem(
-              label: "Create",
-              icon: Icon(Icons.add_circle_outline_rounded),
-            ),
+            // BottomNavigationBarItem(
+            //   label: "Create",
+            //   icon: Icon(Icons.add_circle_outline_rounded),
+            // ),
             BottomNavigationBarItem(
               label: "My Journalist",
               icon: Icon(Icons.bookmark_border_rounded),

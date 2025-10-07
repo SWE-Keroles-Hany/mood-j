@@ -19,8 +19,14 @@ class AppTheme {
   static const Color lightPink = Color(0xffFCE8F3);
   static const deepRose = Color(0xff912A4C);
   static const Color blushPink = Color(0xffFAEBF2);
+  static const Color lightBlueGrey = Color(0xFFE7EFF3);
 
   static ThemeData lightTheme = ThemeData(
+    appBarTheme: AppBarTheme(
+      centerTitle: true,
+
+      backgroundColor: Colors.transparent,
+    ),
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
       backgroundColor: Colors.transparent,
     ),
