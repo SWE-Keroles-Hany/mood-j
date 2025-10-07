@@ -20,6 +20,7 @@ class AppTheme {
   static const deepRose = Color(0xff912A4C);
   static const Color blushPink = Color(0xffFAEBF2);
   static const Color lightBlueGrey = Color(0xFFE7EFF3);
+  static const Color lightLavender = Color(0xFFF7E8F7);
 
   static ThemeData lightTheme = ThemeData(
     appBarTheme: AppBarTheme(

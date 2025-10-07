@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:moodly_j/core/theme/app_theme.dart';
 import 'package:moodly_j/features/home/presentation/home_tab.dart';
+import 'package:moodly_j/features/moods/presentation/widgets/journalist_tab.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = "HomeScreen";
@@ -12,7 +13,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
-  final tabs = [HomeTab(), Text("Second"), Text("Second"), Text("Second")];
+  final tabs = [HomeTab(), JournalistTab(), Text("Second"), Text("Second")];
 
   @override
   Widget build(BuildContext context) {

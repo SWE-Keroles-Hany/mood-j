@@ -4,12 +4,12 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:moodly_j/core/our_emojis.dart';
 import 'package:moodly_j/core/theme/app_theme.dart';
-import 'package:moodly_j/features/add_mood/presentation/widgets/custom_mood.dart';
-import 'package:moodly_j/features/add_mood/presentation/widgets/elvated_button.dart';
-import 'package:moodly_j/features/add_mood/presentation/widgets/feature_lable.dart';
-import 'package:moodly_j/features/add_mood/presentation/widgets/feeling_input_field.dart';
-import 'package:moodly_j/features/add_mood/presentation/widgets/pro_item.dart';
-import 'package:moodly_j/features/add_mood/presentation/widgets/voice_recorder.dart';
+import 'package:moodly_j/features/moods/presentation/widgets/custom_mood.dart';
+import 'package:moodly_j/features/moods/presentation/widgets/elvated_button.dart';
+import 'package:moodly_j/features/moods/presentation/widgets/feature_lable.dart';
+import 'package:moodly_j/features/moods/presentation/widgets/feeling_input_field.dart';
+import 'package:moodly_j/features/moods/presentation/widgets/pro_item.dart';
+import 'package:moodly_j/features/moods/presentation/widgets/voice_recorder.dart';
 
 class AddMoodScreen extends StatefulWidget {
   static const String routeName = "AddMoodScreen";
