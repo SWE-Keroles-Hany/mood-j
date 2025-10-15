@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:moodly_j/core/our_emojis.dart';
 import 'package:moodly_j/core/theme/app_theme.dart';
+import 'package:moodly_j/features/home/widgets/day_mood.dart';
 import 'package:moodly_j/features/moods/presentation/screens/add_mood_screen.dart';
 import 'package:moodly_j/features/home/widgets/custom_button.dart';
 import 'package:moodly_j/features/home/widgets/custom_item.dart';
@@ -45,14 +46,14 @@ class HomeTab extends StatelessWidget {
             leading: Icon(FluentIcons.pen_16_filled),
           ),
 
-          SizedBox(height: 14.h),
+          SizedBox(height: 20.h),
           SizedBox(
-            height: 250.h,
+            height: 290.h,
             child: GridView(
               physics: NeverScrollableScrollPhysics(),
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
-                childAspectRatio: 1.1,
+                // childAspectRatio: 1,
               ),
               children: [
                 CustomItem(
@@ -90,7 +91,7 @@ class HomeTab extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(height: 14.h),
+          // SizedBox(height: 15.h),
           CustomButton(
             bgColor: AppTheme.lightBlue,
             color: AppTheme.leafGreen,
@@ -100,65 +101,6 @@ class HomeTab extends StatelessWidget {
             },
             title: "Add Mood",
           ),
-          SizedBox(height: 12.h),
-          CustomButton(
-            bgColor: AppTheme.mintGreen,
-            color: AppTheme.forestGreen,
-            icon: Icons.emoji_emotions,
-            onPressed: () {},
-            title: "Check Mood",
-          ),
-          // Row(
-          //   children: [
-          //     Expanded(
-          //       child: CustomButton(
-          //         bgColor: AppTheme.lightBlue,
-          //         color: AppTheme.leafGreen,
-          //         icon: Icons.add_box_outlined,
-          //         onPressed: () {},
-          //         title: "Add Mood",
-          //       ),
-          //     ),
-          //     SizedBox(width: 5.w),
-          //     Expanded(
-          //       child: CustomButton(
-          //         bgColor: AppTheme.mintGreen,
-          //         color: AppTheme.forestGreen,
-          //         icon: Icons.emoji_emotions,
-          //         onPressed: () {},
-          //         title: "Check Mood",
-          //       ),
-          //     ),
-          //   ],
-          // ),
-          // SizedBox(height: 5.h),
-          // Text(
-          //   "Last 7 Days",
-          //   style: textTheme.titleMedium!.copyWith(
-          //     color: AppTheme.black,
-          //     fontWeight: FontWeight.bold,
-          //   ),
-          // ),
-          // SizedBox(height: 5.h),
-          // Container(
-          //   padding: EdgeInsets.all(4.r),
-          //   decoration: BoxDecoration(
-          //     color: AppTheme.grey,
-          //     borderRadius: BorderRadius.circular(20.r),
-          //   ),
-          //   child: Row(
-          //     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          //     children: [
-          //       DayMood(day: "Sat", emoji: sad),
-          //       DayMood(day: "Sun", emoji: sad),
-          //       DayMood(day: "Mon", emoji: sad),
-          //       DayMood(day: "Tue", emoji: sad),
-          //       DayMood(day: "Wed", emoji: sad),
-          //       DayMood(day: "Thu", emoji: sad),
-          //       DayMood(day: "Fri", emoji: sad),
-          //     ],
-          //   ),
-          // ),
         ],
       ),
     );

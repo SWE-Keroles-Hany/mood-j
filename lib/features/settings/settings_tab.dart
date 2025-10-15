@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moodly_j/core/theme/app_theme.dart';
-import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
+import 'package:moodly_j/features/settings/widgets/notification_setting.dart';
 import 'package:moodly_j/features/settings/widgets/settign_item_lable.dart';
 import 'package:moodly_j/features/settings/widgets/setting_item.dart';
 
@@ -56,17 +56,7 @@ class _SettingsTabState extends State<SettingsTab> {
             title: "Theme",
           ),
 
-          //! Daily Reminder Me
-          SizedBox(height: 15.h),
           //! Apperance
-          SettignItemLable(title: "Daily Reminder"),
-          SizedBox(height: 5.h),
-          SettingItem(
-            controller: notificationController,
-            onChanged: dailyReminder,
-            subTitle: reminder,
-            title: "Notification",
-          ),
           SizedBox(height: 15.h),
           //! Apperance
           SettignItemLable(title: "Language"),
@@ -76,6 +66,17 @@ class _SettingsTabState extends State<SettingsTab> {
             onChanged: onLanguageChange,
             subTitle: language,
             title: "Language",
+          ),
+          SizedBox(height: 15.h),
+
+          SettignItemLable(title: "Daily Reminder"),
+          SizedBox(height: 5.h),
+          NotificationSetting(
+            reminderMe: reminderSelected,
+            controller: notificationController,
+            onChanged: dailyReminder,
+            subTitle: "Notification",
+            title: "Daily Reminder",
           ),
         ],
       ),
@@ -93,7 +94,7 @@ class _SettingsTabState extends State<SettingsTab> {
     });
   }
 
-  void onLanguageChange(dynamic value) {
+  void onLanguageChange(dynamic value) async {
     setState(() {
       languageSelected = !languageSelected;
       if (languageSelected) {
@@ -108,9 +109,9 @@ class _SettingsTabState extends State<SettingsTab> {
     setState(() {
       reminderSelected = !reminderSelected;
       if (reminderSelected) {
-        reminder = "On";
-      } else {
         reminder = "Off";
+      } else {
+        reminder = "On";
       }
     });
   }
