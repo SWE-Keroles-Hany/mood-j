@@ -1,0 +1,19 @@
+// add mood
+// delete mood
+// get all moods
+
+import 'package:moodly_j/features/moods/data/models/mood_model.dart';
+
+abstract class MoodsDataSource {
+  //! Add Mood
+  Future<void> addMood({required MoodModel moodModel});
+  //! update Mood
+  Future<void> updateMood({
+    required String modeID,
+    required MoodModel moodModel,
+  });
+  //! Delete Mood
+  Future<void> deleteMode({required String modeID});
+  //! get all Moods
+  Future<List<MoodModel>> getAllMoods();
+}
