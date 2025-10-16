@@ -1,31 +1,40 @@
+import 'dart:developer';
+import 'package:moodly_j/core/data_base/local_data_base.dart';
+import 'package:moodly_j/core/failure/app_exception.dart';
 import 'package:moodly_j/features/moods/data/data_sources/moods_data_source.dart';
 import 'package:moodly_j/features/moods/data/models/mood_model.dart';
 
 class SqlMoodsDataSource implements MoodsDataSource {
+  LocalDatabase localDB = LocalDatabase();
   @override
-  Future<void> addMood({required MoodModel moodModel}) {
-    // TODO: implement addMood
-    throw UnimplementedError();
+  Future<void> addMood({required MoodModel moodModel}) async {
+    try {
+      await localDB.addMood(moodModel: moodModel);
+    } catch (e) {
+      log(e.toString());
+      throw AppException("Failed To Add Your Mood");
+    }
   }
 
   @override
-  Future<void> deleteMode({required String modeID}) {
-    // TODO: implement deleteMode
-    throw UnimplementedError();
+  Future<void> deleteMode({required int modeID}) async {
+    try {
+      await localDB.deleteMood(id: modeID);
+    } catch (e) {
+      log(e.toString());
+      throw AppException("Failed To Delete This Mood");
+    }
   }
 
   @override
-  Future<List<MoodModel>> getAllMoods() {
-    // TODO: implement getAllMoods
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<void> updateMood({
-    required String modeID,
-    required MoodModel moodModel,
-  }) {
-    // TODO: implement updateMood
-    throw UnimplementedError();
+  Future<List<MoodModel>> getAllMoods() async {
+    try {
+      final allMoods = await localDB.getAllMoods();
+      return allMoods;
+    } catch (e) {
+      log(e.toString());
+      throw AppException("Failed To Get Your Moods");
+    }
   }
 }
+// user (name, moods, lang , theme, notifications)

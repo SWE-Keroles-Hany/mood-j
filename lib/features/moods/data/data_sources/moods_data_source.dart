@@ -8,12 +8,12 @@ abstract class MoodsDataSource {
   //! Add Mood
   Future<void> addMood({required MoodModel moodModel});
   //! update Mood
-  Future<void> updateMood({
-    required String modeID,
-    required MoodModel moodModel,
-  });
+  // Future<void> updateMood({
+  //   required String modeID,
+  //   required MoodModel moodModel,
+  // });
   //! Delete Mood
-  Future<void> deleteMode({required String modeID});
+  Future<void> deleteMode({required int modeID});
   //! get all Moods
   Future<List<MoodModel>> getAllMoods();
 }

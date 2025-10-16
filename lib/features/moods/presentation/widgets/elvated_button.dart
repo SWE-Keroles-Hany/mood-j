@@ -5,11 +5,9 @@ import 'package:moodly_j/core/theme/app_theme.dart';
 class ElvatedButton extends StatelessWidget {
   const ElvatedButton({
     super.key,
-    required this.controller,
     required this.title,
     required this.onPressed,
   });
-  final TextEditingController controller;
   final Function()? onPressed;
   final String title;
 

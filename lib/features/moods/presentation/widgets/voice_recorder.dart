@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:voice_note_kit/voice_note_kit.dart';
 
 class VoiceRecorder extends StatefulWidget {
-  const VoiceRecorder({super.key});
-
+  const VoiceRecorder({super.key, required this.onRecorded});
+  final Function(File)? onRecorded;
   @override
   State<VoiceRecorder> createState() => _VoiceRecorderState();
 }
@@ -18,14 +18,7 @@ class _VoiceRecorderState extends State<VoiceRecorder> {
       // iconSize: 60.r,
       showTimerText: true,
       showSwipeLeftToCancel: true,
-      onRecorded: (file) {
-        setState(() {
-          recordedFile = file;
-        });
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Recording saved: ${file.path}')),
-        );
-      },
+      onRecorded: widget.onRecorded,
 
       onError: (error) {
         ScaffoldMessenger.of(

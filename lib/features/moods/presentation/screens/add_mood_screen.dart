@@ -1,8 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:moodly_j/core/our_emojis.dart';
 import 'package:moodly_j/core/theme/app_theme.dart';
+import 'package:moodly_j/core/ui_uitils.dart';
+import 'package:moodly_j/features/moods/domain/entities/mood_entity.dart';
+import 'package:moodly_j/features/moods/presentation/cubit/moods_cubti.dart';
+import 'package:moodly_j/features/moods/presentation/cubit/moods_states.dart';
 import 'package:moodly_j/features/moods/presentation/widgets/custom_mood.dart';
 import 'package:moodly_j/features/moods/presentation/widgets/elvated_button.dart';
 import 'package:moodly_j/features/moods/presentation/widgets/feature_lable.dart';
@@ -19,9 +26,11 @@ class AddMoodScreen extends StatefulWidget {
 }
 
 class _AddMoodScreenState extends State<AddMoodScreen> {
-  TextEditingController controller = TextEditingController();
+  TextEditingController descriptionController = TextEditingController();
   String? selectedEmoji;
   XFile? selectedImg;
+  File? recorededFile;
+
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
@@ -34,7 +43,7 @@ class _AddMoodScreenState extends State<AddMoodScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               //
-              FeelingInputField(controller: controller),
+              FeelingInputField(controller: descriptionController),
               SizedBox(height: 10.h),
               FeatureLable(lable: "How's Your Mood"),
               Row(
@@ -115,7 +124,12 @@ class _AddMoodScreenState extends State<AddMoodScreen> {
               Row(
                 children: [
                   Spacer(),
-                  VoiceRecorder(),
+                  VoiceRecorder(
+                    onRecorded: (file) {
+                      recorededFile = file;
+                      setState(() {});
+                    },
+                  ),
                   SizedBox(width: 20.w),
                 ],
               ),
@@ -123,10 +137,20 @@ class _AddMoodScreenState extends State<AddMoodScreen> {
               SizedBox(height: 6.h),
 
               Spacer(),
-              ElvatedButton(
-                controller: controller,
-                onPressed: addMood,
-                title: "Save",
+              BlocListener<MoodsCubit, MoodsStates>(
+                listener: (context, state) {
+                  if (state is LoadingAddMoodState) {
+                    UiUtils.showLoadingIndicator(context);
+                  } else if (state is ErrorAddMoodState) {
+                    UiUtils.hideLoading(context);
+                    UiUtils.showMessage(context, state.message, false);
+                  } else if (state is SuccessAddMoodState) {
+                    UiUtils.hideLoading(context);
+                    UiUtils.showMessage(context, "Your Mood Added", true);
+                    Navigator.of(context).pop();
+                  }
+                },
+                child: ElvatedButton(onPressed: addMood, title: "Save"),
               ),
               SizedBox(height: 10.h),
             ],
@@ -137,10 +161,20 @@ class _AddMoodScreenState extends State<AddMoodScreen> {
     );
   }
 
-  void addMood() {
-    if (controller.text.trim().isEmpty) {
-    } else if (selectedEmoji == null) {
-    } else {}
+  Future<void> addMood() async {
+    if (descriptionController.text.trim().isEmpty || selectedEmoji == null) {
+      UiUtils.showMessage(context, "Description And Emoji are Requried", false);
+    } else {
+      final moodEntity = MoodEntity(
+        descriptionController.text,
+        selectedEmoji!,
+        recorededFile.toString(),
+        selectedImg.toString(),
+      );
+      await BlocProvider.of<MoodsCubit>(
+        context,
+      ).addMood(moodEntity: moodEntity);
+    }
   }
 
   Future<void> pickImage() async {

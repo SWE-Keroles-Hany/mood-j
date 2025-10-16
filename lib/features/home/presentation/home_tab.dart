@@ -3,7 +3,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
 import 'package:moodly_j/core/our_emojis.dart';
 import 'package:moodly_j/core/theme/app_theme.dart';
-import 'package:moodly_j/features/home/widgets/day_mood.dart';
 import 'package:moodly_j/features/moods/presentation/screens/add_mood_screen.dart';
 import 'package:moodly_j/features/home/widgets/custom_button.dart';
 import 'package:moodly_j/features/home/widgets/custom_item.dart';
