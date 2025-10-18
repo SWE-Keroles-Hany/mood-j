@@ -8,8 +8,8 @@ class MoodEntity {
   MoodEntity({
     required this.description,
     required this.emoji,
+    required this.moodDate,
     this.audioPath,
     this.imgPath,
-    required this.moodDate,
   });
 }

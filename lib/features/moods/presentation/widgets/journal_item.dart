@@ -6,6 +6,7 @@ import 'package:moodly_j/core/theme/app_theme.dart';
 import 'package:moodly_j/features/moods/domain/entities/mood_entity.dart';
 import 'package:moodly_j/features/moods/presentation/cubit/moods_cubti.dart';
 import 'package:moodly_j/features/moods/presentation/cubit/moods_states.dart';
+import 'package:moodly_j/features/moods/presentation/screens/journal_details.dart';
 
 // ignore: must_be_immutable
 class JournalItem extends StatelessWidget {
@@ -19,7 +20,11 @@ class JournalItem extends StatelessWidget {
     return BlocListener<MoodsCubit, MoodsStates>(
       listener: (context, state) {},
       child: GestureDetector(
-        onTap: () async {},
+        onTap: () async {
+          Navigator.of(
+            context,
+          ).pushNamed(JournalDetails.routeName, arguments: mood);
+        },
         child: Container(
           padding: EdgeInsets.all(10.r),
           decoration: BoxDecoration(
@@ -47,7 +52,7 @@ class JournalItem extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      dateFormat.format(mood.moodDate ?? DateTime.now()),
+                      dateFormat.format(mood.moodDate),
                       style: textTheme.titleMedium!.copyWith(
                         fontSize: 18.sp,
                         color: AppTheme.black,

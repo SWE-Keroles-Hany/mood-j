@@ -9,6 +9,9 @@ class SqlMoodsDataSource implements MoodsDataSource {
   @override
   Future<void> addMood({required MoodModel moodModel}) async {
     try {
+      print(moodModel.audioPath);
+      print(moodModel.imgPath);
+
       await localDB.addMood(moodModel: moodModel);
     } catch (e) {
       log(e.toString());
@@ -19,7 +22,7 @@ class SqlMoodsDataSource implements MoodsDataSource {
   @override
   Future<void> deleteMode({required int modeID}) async {
     try {
-      final id = await localDB.deleteMood(id: modeID);
+      await localDB.deleteMood(id: modeID);
     } catch (e) {
       log(e.toString());
       throw AppException("Failed To Delete This Mood");
@@ -30,6 +33,9 @@ class SqlMoodsDataSource implements MoodsDataSource {
   Future<List<MoodModel>> getAllMoods() async {
     try {
       final allMoods = await localDB.getAllMoods();
+      print("imgPath data source :${allMoods[1].imgPath}");
+      print("audioPath data source :${allMoods[1].audioPath}");
+
       return allMoods;
     } catch (e) {
       log(e.toString());

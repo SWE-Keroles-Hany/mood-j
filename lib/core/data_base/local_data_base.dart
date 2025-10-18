@@ -115,24 +115,9 @@ class LocalDatabase {
     Database? mydb = await db;
     String sql = "SELECT * FROM $tableName";
     List<Map<String, dynamic>> response = await mydb!.rawQuery(sql);
+    print(response);
     return response;
   }
-
-  // // ---------- Update Mood (safe with params) ----------
-  // Future<int> updateMood({
-  //   required String columnName,
-  //   required dynamic value,
-  //   required int moodID,
-  // }) async {
-  //   Database? mydb = await db;
-
-  //   // تأكد أن columnName قيمة معروفة (أمان) — لا تضع اسم العمود من إدخال المستخدم مباشرة
-  //   // مثال: allowList = ['description','emoji','imgPath','audioPath','moodDate']
-  //   String sql = "UPDATE moods SET $columnName = ? WHERE moodID = ?";
-  //   final paramValue = value is DateTime ? value.toIso8601String() : value;
-  //   int response = await mydb!.rawUpdate(sql, [paramValue, moodID]);
-  //   return response;
-  // }
 
   // ---------- Update User (single-row user) ----------
   Future<int> updateUser({
@@ -155,7 +140,7 @@ class LocalDatabase {
       Database? mydb = await db;
       String sql = "DELETE FROM moods WHERE moodID = ?";
       int response = await mydb!.rawDelete(sql, [id]);
-      print(response);
+
       return response;
     } catch (e) {
       print(e.toString());

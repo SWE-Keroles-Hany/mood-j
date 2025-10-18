@@ -34,7 +34,12 @@ class MoodsRepositoryImp implements MoodsRepository {
     try {
       final List<MoodModel> allMoodsModel = await _moodsDataSource
           .getAllMoods();
-      final allMoods = allMoodsModel.map((mood) => mood.toEntity).toList();
+
+      final List<MoodEntity> allMoods = allMoodsModel
+          .map((mood) => mood.toEntity)
+          .toList();
+      print("Audio from repo ${allMoods[1].audioPath}");
+      print("imgPath from repo ${allMoods[1].imgPath}");
       return Right(allMoods);
     } catch (_) {
       return Left(Failure("Failed Get Your Moods"));

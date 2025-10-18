@@ -3,8 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moodly_j/core/theme/app_theme.dart';
+import 'package:moodly_j/features/home/widgets/custom_button.dart';
 import 'package:moodly_j/features/moods/presentation/cubit/moods_cubti.dart';
 import 'package:moodly_j/features/moods/presentation/cubit/moods_states.dart';
+import 'package:moodly_j/features/moods/presentation/screens/add_mood_screen.dart';
 import 'package:moodly_j/features/moods/presentation/widgets/journal_item.dart';
 
 class JournalistTab extends StatefulWidget {
@@ -44,23 +46,41 @@ class _JournalistTabState extends State<JournalistTab> {
           BlocBuilder<MoodsCubit, MoodsStates>(
             builder: (context, state) {
               if (state is LoadingGetAllMoodsState) {
-                return Center(
-                  child: CircularProgressIndicator(color: AppTheme.amber),
+                return Expanded(
+                  child: Center(
+                    child: CircularProgressIndicator(color: AppTheme.amber),
+                  ),
                 );
               } else if (state is ErrorGetAllMoodsState) {
                 return Expanded(
                   child: Center(
                     child: Text(
                       "Some Thing Went Wrong",
-                      // textAlign: TextAlign.center,
                       style: textTheme.titleMedium!.copyWith(
                         color: AppTheme.deepRose,
                       ),
                     ),
                   ),
                 );
+              } else if (state is SuccessGetAllMoodsState &&
+                  state.allMoods.isEmpty) {
+                return Expanded(
+                  child: Center(
+                    child: Column(
+                      children: [
+                        Text(
+                          "You don't have Journalist",
+                          style: textTheme.titleMedium!.copyWith(
+                            color: AppTheme.deepRose,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                );
               } else if (state is SuccessGetAllMoodsState) {
                 final allMoods = state.allMoods;
+                print(allMoods.last.imgPath);
                 return Expanded(
                   child: ListView.separated(
                     separatorBuilder: (context, index) =>

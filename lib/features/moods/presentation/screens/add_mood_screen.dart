@@ -155,7 +155,9 @@ class _AddMoodScreenState extends State<AddMoodScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [CustomAudioPlayer(recorededFile: recorededFile)],
+            children: [
+              CustomAudioPlayer(recorededFile: File(recorededFile!.path)),
+            ],
           ),
         );
       },
@@ -166,11 +168,14 @@ class _AddMoodScreenState extends State<AddMoodScreen> {
     if (descriptionController.text.trim().isEmpty || selectedEmoji == null) {
       UiUtils.showMessage(context, "Description And Emoji are Requried", false);
     } else {
+      print("From Ui screen : ${recorededFile?.path}");
+      print("From Ui screen : ${selectedImg?.path}");
+
       final moodEntity = MoodEntity(
         description: descriptionController.text,
-        emoji: selectedEmoji!,
-        audioPath: recorededFile.toString(),
-        imgPath: selectedImg.toString(),
+        emoji: selectedEmoji ?? "",
+        audioPath: recorededFile?.path ?? "",
+        imgPath: selectedImg?.path ?? "",
         moodDate: DateTime.now(),
       );
       await BlocProvider.of<MoodsCubit>(

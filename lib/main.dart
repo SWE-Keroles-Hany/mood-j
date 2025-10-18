@@ -10,7 +10,10 @@ import 'package:moodly_j/features/moods/presentation/cubit/moods_cubti.dart';
 void main() {
   setup();
   runApp(
-    BlocProvider(create: (_) => getIt<MoodsCubit>(), child: const MyApp()),
+    BlocProvider(
+      create: (_) => getIt<MoodsCubit>()..getAllMoods(),
+      child: const MyApp(),
+    ),
   );
 }
 

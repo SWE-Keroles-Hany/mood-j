@@ -1,3 +1,5 @@
+import 'package:flutter_cache_manager/file.dart';
+
 class MoodModel {
   String description;
   String emoji;
@@ -22,18 +24,19 @@ class MoodModel {
       'emoji': emoji,
       'imgPath': imgPath,
       'audioPath': audioPath,
-      'moodDate': moodDate.toIso8601String(),
+      'moodDate': moodDate,
     };
   }
 
   factory MoodModel.fromMap(Map<String, dynamic> map) {
+    // final v = map['audioPath'];
     return MoodModel(
       id: map['id'],
       description: map['description'],
       emoji: map['emoji'],
       imgPath: map['imgPath'],
       audioPath: map['audioPath'],
-      moodDate: map['moodDate'],
+      moodDate: DateTime.parse(map['moodDate']),
     );
   }
 }
