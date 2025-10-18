@@ -3,9 +3,15 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moodly_j/core/theme/app_theme.dart';
 
 class ProItem extends StatelessWidget {
-  const ProItem({required this.icon, required this.title, super.key});
+  const ProItem({
+    required this.icon,
+    required this.title,
+    super.key,
+    this.done = false,
+  });
   final IconData icon;
   final String title;
+  final bool done;
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +33,8 @@ class ProItem extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
+          Spacer(),
+          done ? Icon(Icons.check, size: 30) : SizedBox(),
         ],
       ),
     );

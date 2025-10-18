@@ -12,22 +12,30 @@ class UiUtils {
     backgroundColor: isSucces
         ? Colors.green
         : const Color.fromARGB(255, 255, 2, 2),
-    style: ToastificationStyle.flat,
     animationBuilder: (context, animation, alignment, child) {
       return FadeTransition(opacity: animation, child: child);
     },
+    // callbacks: ToastificationCallbacks(),
+    icon: isSucces
+        ? Icon(Icons.done_all_outlined, color: Colors.amber, size: 25.r)
+        : Icon(Icons.error, color: Colors.black, size: 25.r),
+    // showIcon: false,
     closeButton: ToastCloseButton(
       showType: CloseButtonShowType.onHover,
       buttonBuilder: (context, onClose) {
         return OutlinedButton.icon(
           onPressed: onClose,
-          icon: const Icon(Icons.close, size: 20),
+          icon: const Icon(Icons.close, color: Colors.white, size: 20),
           label: const Text('Close'),
         );
       },
     ),
+    // dragToClose: ,
     context: context, // optional if you use ToastificationWrapper
-    title: Text(message, style: TextStyle(fontSize: 16.sp)),
+    title: Text(
+      message,
+      style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.bold),
+    ),
     autoCloseDuration: const Duration(seconds: 5),
   );
 

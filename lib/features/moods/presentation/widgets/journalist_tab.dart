@@ -1,20 +1,35 @@
 // import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:moodly_j/core/our_emojis.dart';
 import 'package:moodly_j/core/theme/app_theme.dart';
+import 'package:moodly_j/features/moods/presentation/cubit/moods_cubti.dart';
+import 'package:moodly_j/features/moods/presentation/cubit/moods_states.dart';
 import 'package:moodly_j/features/moods/presentation/widgets/journal_item.dart';
 
-class JournalistTab extends StatelessWidget {
+class JournalistTab extends StatefulWidget {
   const JournalistTab({super.key});
 
   @override
+  State<JournalistTab> createState() => _JournalistTabState();
+}
+
+class _JournalistTabState extends State<JournalistTab> {
+  @override
+  void initState() {
+    context.read<MoodsCubit>().getAllMoods();
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final contextB = BlocProvider.of<MoodsCubit>(context);
     final textTheme = Theme.of(context).textTheme;
     return Container(
       padding: EdgeInsets.all(12.r),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
+        // mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Text(
             textAlign: TextAlign.center,
@@ -26,20 +41,48 @@ class JournalistTab extends StatelessWidget {
             ),
           ),
           SizedBox(height: 14.h),
-          Expanded(
-            child: ListView.separated(
-              separatorBuilder: (context, index) => SizedBox(height: 14.h),
-              itemCount: 20,
-              itemBuilder: (context, index) => JournalItem(
-                description: "-----------",
-                emoji: OurEmojis.happy.toString(),
-                date: DateTime.now(),
-              ),
-            ),
+          BlocBuilder<MoodsCubit, MoodsStates>(
+            builder: (context, state) {
+              if (state is LoadingGetAllMoodsState) {
+                return Center(
+                  child: CircularProgressIndicator(color: AppTheme.amber),
+                );
+              } else if (state is ErrorGetAllMoodsState) {
+                return Expanded(
+                  child: Center(
+                    child: Text(
+                      "Some Thing Went Wrong",
+                      // textAlign: TextAlign.center,
+                      style: textTheme.titleMedium!.copyWith(
+                        color: AppTheme.deepRose,
+                      ),
+                    ),
+                  ),
+                );
+              } else if (state is SuccessGetAllMoodsState) {
+                final allMoods = state.allMoods;
+                return Expanded(
+                  child: ListView.separated(
+                    separatorBuilder: (context, index) =>
+                        SizedBox(height: 14.h),
+                    itemCount: allMoods.length,
+                    itemBuilder: (context, index) {
+                      return JournalItem(
+                        onDelete: () async {
+                          await contextB.deleteMode(moodId: index + 1);
+                        },
+                        mood: allMoods[index],
+                      );
+                    },
+                  ),
+                );
+              } else {
+                return SizedBox();
+              }
+            },
           ),
         ],
       ),
-      // child: ListView.builder(itemBuilder: ()=>),
     );
   }
 }

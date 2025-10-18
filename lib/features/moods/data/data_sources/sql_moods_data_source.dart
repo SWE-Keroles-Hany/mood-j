@@ -19,7 +19,7 @@ class SqlMoodsDataSource implements MoodsDataSource {
   @override
   Future<void> deleteMode({required int modeID}) async {
     try {
-      await localDB.deleteMood(id: modeID);
+      final id = await localDB.deleteMood(id: modeID);
     } catch (e) {
       log(e.toString());
       throw AppException("Failed To Delete This Mood");

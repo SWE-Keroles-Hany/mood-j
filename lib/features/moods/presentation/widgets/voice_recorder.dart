@@ -15,7 +15,6 @@ class _VoiceRecorderState extends State<VoiceRecorder> {
   @override
   Widget build(BuildContext context) {
     return VoiceRecorderWidget(
-      // iconSize: 60.r,
       showTimerText: true,
       showSwipeLeftToCancel: true,
       onRecorded: widget.onRecorded,
@@ -32,7 +31,6 @@ class _VoiceRecorderState extends State<VoiceRecorder> {
         ).showSnackBar(const SnackBar(content: Text('Recording Cancelled')));
       },
 
-      maxRecordDuration: const Duration(seconds: 60),
       permissionNotGrantedMessage: 'Microphone permission required',
       dragToLeftText: 'Swipe left to cancel recording',
       dragToLeftTextStyle: const TextStyle(

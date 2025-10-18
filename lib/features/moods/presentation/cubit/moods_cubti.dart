@@ -9,6 +9,7 @@ class MoodsCubit extends Cubit<MoodsStates> {
   final AddMood _addMood;
   final DeleteMood _deleteMood;
   final GetAllMoods _getAllMoods;
+  List<MoodEntity> moods = [];
 
   MoodsCubit(this._addMood, this._deleteMood, this._getAllMoods)
     : super(IntialMoodsState());
@@ -32,8 +33,14 @@ class MoodsCubit extends Cubit<MoodsStates> {
   Future<void> getAllMoods() async {
     emit(LoadingGetAllMoodsState());
     final result = await _getAllMoods.getAllMoods();
-    result.fold((failulre) {
-      emit(ErrorGetAllMoodsState(failulre.message));
-    }, (result) => emit(SuccessGetAllMoodsState(result)));
+    result.fold(
+      (failulre) {
+        emit(ErrorGetAllMoodsState(failulre.message));
+      },
+      (result) {
+        moods = result;
+        emit(SuccessGetAllMoodsState(result));
+      },
+    );
   }
 }

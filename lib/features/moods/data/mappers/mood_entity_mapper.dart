@@ -7,5 +7,6 @@ extension MoodEntityMapper on MoodEntity {
     emoji: emoji,
     audioPath: audioPath,
     imgPath: imgPath,
+    moodDate: moodDate,
   );
 }

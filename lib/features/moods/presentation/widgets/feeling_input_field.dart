@@ -9,12 +9,20 @@ class FeelingInputField extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return TextField(
-      autofocus: true,
+      // autofocus: true,
       controller: controller,
       maxLines: 8,
       decoration: InputDecoration(
         hintStyle: textTheme.titleMedium,
         hintText: "How Are You Feeling today",
+        focusedBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.blue),
+          borderRadius: BorderRadius.circular(12.r),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.blue),
+          borderRadius: BorderRadius.circular(12.r),
+        ),
         border: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.blue),
           borderRadius: BorderRadius.circular(12.r),

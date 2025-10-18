@@ -1,3 +1,4 @@
+import 'package:moodly_j/core/failure/app_exception.dart';
 import 'package:moodly_j/core/models/user_model.dart';
 import 'package:moodly_j/features/moods/data/models/mood_model.dart';
 import 'package:sqflite/sqflite.dart';
@@ -55,7 +56,7 @@ class LocalDatabase {
         emoji TEXT NOT NULL,
         imgPath TEXT,
         audioPath TEXT,
-        moodDate TEXT DEFAULT (datetime('now', 'localtime'))
+        moodDate TEXT NOT NULL
       );
     ''');
 
@@ -65,7 +66,7 @@ class LocalDatabase {
   // ---------- Insert Mood ----------
   Future<int> addMood({required MoodModel moodModel}) async {
     Database? mydb = await db;
-    final moodDateStr = moodModel.moodDate;
+    final moodDateStr = moodModel.moodDate.toIso8601String();
 
     String sql = '''
       INSERT INTO moods (description, emoji, imgPath, audioPath, moodDate)
@@ -150,10 +151,16 @@ class LocalDatabase {
 
   // ---------- Delete Mood ----------
   Future<int> deleteMood({required int id}) async {
-    Database? mydb = await db;
-    String sql = "DELETE FROM moods WHERE moodID = ?";
-    int response = await mydb!.rawDelete(sql, [id]);
-    return response;
+    try {
+      Database? mydb = await db;
+      String sql = "DELETE FROM moods WHERE moodID = ?";
+      int response = await mydb!.rawDelete(sql, [id]);
+      print(response);
+      return response;
+    } catch (e) {
+      print(e.toString());
+      throw AppException(e.toString());
+    }
   }
 
   // ---------- Helpers: get all moods as MoodModel ----------

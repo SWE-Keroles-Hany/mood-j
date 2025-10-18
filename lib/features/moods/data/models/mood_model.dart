@@ -2,7 +2,7 @@ class MoodModel {
   String description;
   String emoji;
   int? id;
-  DateTime? moodDate;
+  DateTime moodDate;
   String? imgPath;
   String? audioPath;
 
@@ -10,7 +10,7 @@ class MoodModel {
     this.id,
     required this.description,
     required this.emoji,
-    this.moodDate,
+    required this.moodDate,
     this.imgPath,
     this.audioPath,
   });
@@ -22,7 +22,7 @@ class MoodModel {
       'emoji': emoji,
       'imgPath': imgPath,
       'audioPath': audioPath,
-      'moodDate': moodDate?.toIso8601String(),
+      'moodDate': moodDate.toIso8601String(),
     };
   }
 
@@ -33,9 +33,7 @@ class MoodModel {
       emoji: map['emoji'],
       imgPath: map['imgPath'],
       audioPath: map['audioPath'],
-      moodDate: map['moodDate'] != null
-          ? DateTime.parse(map['moodDate'])
-          : null,
+      moodDate: map['moodDate'],
     );
   }
 }
