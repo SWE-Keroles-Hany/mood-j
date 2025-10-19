@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:moodly_j/core/failure/failure.dart';
 import 'package:moodly_j/features/moods/data/data_sources/moods_data_source.dart';
@@ -38,11 +40,11 @@ class MoodsRepositoryImp implements MoodsRepository {
       final List<MoodEntity> allMoods = allMoodsModel
           .map((mood) => mood.toEntity)
           .toList();
-      print("Audio from repo ${allMoods[1].audioPath}");
-      print("imgPath from repo ${allMoods[1].imgPath}");
+
       return Right(allMoods);
-    } catch (_) {
-      return Left(Failure("Failed Get Your Moods"));
+    } catch (e) {
+      log(e.toString());
+      return Left(Failure("e.toString()"));
     }
   }
 }

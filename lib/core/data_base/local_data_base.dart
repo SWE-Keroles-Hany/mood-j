@@ -80,7 +80,6 @@ class LocalDatabase {
       moodModel.audioPath,
       moodDateStr,
     ]);
-
     return response;
   }
 

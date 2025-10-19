@@ -6,7 +6,7 @@ extension MoodModelMapper on MoodModel {
     description: description,
     emoji: emoji,
     moodDate: moodDate,
-
+    id: id,
     audioPath: audioPath,
     imgPath: imgPath,
   );

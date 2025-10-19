@@ -7,7 +7,6 @@ class NotificationSetting extends StatefulWidget {
   const NotificationSetting({
     super.key,
     required this.controller,
-
     required this.onChanged,
     required this.subTitle,
     required this.title,
@@ -34,31 +33,18 @@ class _NotificationSettingState extends State<NotificationSetting> {
             color: const Color.fromARGB(255, 228, 220, 224),
             borderRadius: BorderRadius.circular(18.r),
           ),
-          padding: EdgeInsets.all(12.r),
+          padding: EdgeInsets.all(18.r),
           child: Column(
             children: [
               Row(
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        widget.title,
-                        style: textTheme.titleMedium!.copyWith(
-                          color: AppTheme.black,
-                          fontSize: 18.sp,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      Text(
-                        textAlign: TextAlign.start,
-                        widget.subTitle,
-                        style: textTheme.titleMedium!.copyWith(
-                          color: AppTheme.black,
-                          fontSize: 14.sp,
-                        ),
-                      ),
-                    ],
+                  Text(
+                    widget.title,
+                    style: textTheme.titleMedium!.copyWith(
+                      color: AppTheme.black,
+                      fontSize: 18.sp,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   Spacer(),
                   AdvancedSwitch(
@@ -66,44 +52,12 @@ class _NotificationSettingState extends State<NotificationSetting> {
                     controller: widget.controller,
                     activeColor: AppTheme.blue,
                     borderRadius: BorderRadius.all(Radius.circular(16.r)),
-                    width: 60.w,
-                    height: 25.h,
+                    width: 55.w,
+                    height: 22.h,
                     enabled: true,
                     disabledOpacity: 0.5.r,
                   ),
                 ],
-              ),
-
-              //! visibile
-              Visibility(
-                visible: !widget.reminderMe,
-                child: Column(
-                  children: [
-                    Divider(color: AppTheme.black),
-                    Row(
-                      children: [
-                        Text("Remind Me at .."),
-                        SizedBox(width: 10.w),
-                        Text(time.toString()),
-                        Spacer(),
-                        IconButton(
-                          onPressed: () async {
-                            time = await showTimePicker(
-                              context: context,
-                              initialTime: TimeOfDay.now(),
-                            );
-                            setState(() {});
-                          },
-                          icon: Icon(
-                            Icons.timer,
-                            size: 28.r,
-                            color: AppTheme.blue,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
               ),
             ],
           ),

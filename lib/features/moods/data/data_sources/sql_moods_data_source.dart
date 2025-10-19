@@ -9,12 +9,10 @@ class SqlMoodsDataSource implements MoodsDataSource {
   @override
   Future<void> addMood({required MoodModel moodModel}) async {
     try {
-      print(moodModel.audioPath);
-      print(moodModel.imgPath);
-
-      await localDB.addMood(moodModel: moodModel);
+      int id = await localDB.addMood(moodModel: moodModel);
     } catch (e) {
       log(e.toString());
+
       throw AppException("Failed To Add Your Mood");
     }
   }
@@ -33,13 +31,10 @@ class SqlMoodsDataSource implements MoodsDataSource {
   Future<List<MoodModel>> getAllMoods() async {
     try {
       final allMoods = await localDB.getAllMoods();
-      print("imgPath data source :${allMoods[1].imgPath}");
-      print("audioPath data source :${allMoods[1].audioPath}");
-
       return allMoods;
     } catch (e) {
       log(e.toString());
-      throw AppException("Failed To Get Your Moods");
+      throw AppException(e.toString());
     }
   }
 }

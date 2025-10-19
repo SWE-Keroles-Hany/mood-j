@@ -1,6 +1,6 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:moodly_j/features/moods/domain/entities/mood_entity.dart';
-import 'package:moodly_j/features/moods/domain/use_cases/add_mood%20copy.dart';
+import 'package:moodly_j/features/moods/domain/use_cases/get_all_moods.dart';
 import 'package:moodly_j/features/moods/domain/use_cases/add_mood.dart';
 import 'package:moodly_j/features/moods/domain/use_cases/delete_mood.dart';
 import 'package:moodly_j/features/moods/presentation/cubit/moods_states.dart';
@@ -44,13 +44,13 @@ class MoodsCubit extends Cubit<MoodsStates> {
     );
   }
 
-  Future<void> getMoodImage({required int index}) async {
-    emit(LoadingGetImg());
-    final result = moods[index].imgPath;
-    if (result == null) {
-      emit(ErrorGetImg());
-    } else {
-      emit(SuccessGetImg(result));
-    }
-  }
+  // Future<void> getMoodImage({required int index}) async {
+  //   emit(LoadingGetImg());
+  //   final result = moods[index].imgPath;
+  //   if (result == null) {
+  //     emit(ErrorGetImg());
+  //   } else {
+  //     emit(SuccessGetImg(result));
+  //   }
+  // }
 }

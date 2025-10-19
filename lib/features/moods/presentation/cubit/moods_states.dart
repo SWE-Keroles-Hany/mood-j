@@ -36,13 +36,3 @@ class SuccessGetAllMoodsState implements MoodsStates {
   final List<MoodEntity> allMoods;
   SuccessGetAllMoodsState(this.allMoods);
 }
-
-//! get all moods
-class LoadingGetImg implements MoodsStates {}
-
-class ErrorGetImg implements MoodsStates {}
-
-class SuccessGetImg implements MoodsStates {
-  final String path;
-  SuccessGetImg(this.path);
-}

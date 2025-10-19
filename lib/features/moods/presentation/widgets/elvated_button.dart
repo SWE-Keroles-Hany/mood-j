@@ -17,7 +17,7 @@ class ElvatedButton extends StatelessWidget {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: AppTheme.blue,
-        fixedSize: Size(290.w, 40.h),
+        fixedSize: Size(double.infinity, 40.h),
       ),
       onPressed: onPressed,
       child: Text(

@@ -1,12 +1,10 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:moodly_j/core/theme/app_theme.dart';
 import 'package:moodly_j/features/moods/domain/entities/mood_entity.dart';
 import 'package:moodly_j/features/moods/presentation/widgets/custom_audio_player.dart';
-
 // ignore: must_be_immutable
 class JournalDetailsScreen extends StatefulWidget {
   static const routeName = "JournalDetails";
@@ -48,6 +46,7 @@ class _JournalDetailsScreenState extends State<JournalDetailsScreen> {
       body: Padding(
         padding: EdgeInsets.all(20.r),
         child: Container(
+          width: double.infinity,
           padding: EdgeInsets.all(15.r),
 
           decoration: BoxDecoration(

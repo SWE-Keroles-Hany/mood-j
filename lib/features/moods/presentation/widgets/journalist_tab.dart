@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moodly_j/core/theme/app_theme.dart';
+import 'package:moodly_j/core/ui_uitils.dart';
 import 'package:moodly_j/features/moods/presentation/cubit/moods_cubti.dart';
 import 'package:moodly_j/features/moods/presentation/cubit/moods_states.dart';
 import 'package:moodly_j/features/moods/presentation/widgets/journal_item.dart';
@@ -14,88 +15,108 @@ class JournalistTab extends StatefulWidget {
 }
 
 class _JournalistTabState extends State<JournalistTab> {
+  late final MoodsCubit moodsCubit;
+
   @override
   void initState() {
-    context.read<MoodsCubit>().getAllMoods();
     super.initState();
+    moodsCubit = context.read<MoodsCubit>();
+    moodsCubit.getAllMoods();
   }
 
   @override
   Widget build(BuildContext context) {
-    final contextB = BlocProvider.of<MoodsCubit>(context);
     final textTheme = Theme.of(context).textTheme;
-    return Container(
+
+    return Padding(
       padding: EdgeInsets.all(12.r),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          /// Title
           Text(
-            textAlign: TextAlign.center,
             "Your Journal Moods",
-            style: textTheme.titleMedium!.copyWith(
+            textAlign: TextAlign.center,
+            style: textTheme.titleMedium?.copyWith(
               color: AppTheme.black,
               fontWeight: FontWeight.bold,
               fontSize: 25.sp,
             ),
           ),
           SizedBox(height: 14.h),
-          BlocBuilder<MoodsCubit, MoodsStates>(
-            builder: (context, state) {
-              if (state is LoadingGetAllMoodsState) {
-                return Expanded(
-                  child: Center(
-                    child: CircularProgressIndicator(color: AppTheme.amber),
-                  ),
-                );
-              } else if (state is ErrorGetAllMoodsState) {
-                return Expanded(
-                  child: Center(
-                    child: Text(
-                      "Some Thing Went Wrong",
-                      style: textTheme.titleMedium!.copyWith(
-                        color: AppTheme.deepRose,
+
+          /// Bloc Listener + Builder (مع بعض)
+          Expanded(
+            child: BlocListener<MoodsCubit, MoodsStates>(
+              listener: (context, state) {
+                if (state is LoadingDeleteMoodState) {
+                  UiUtils.showLoadingIndicator(context);
+                } else if (state is ErrorDeleteMoodState) {
+                  UiUtils.hideLoading(context);
+                  UiUtils.showMessage(context, state.message, false);
+                } else if (state is SuccessDeleteMoodState) {
+                  UiUtils.hideLoading(context);
+                  moodsCubit.getAllMoods();
+                }
+              },
+              child: BlocBuilder<MoodsCubit, MoodsStates>(
+                builder: (context, state) {
+                  /// حالة التحميل عند جلب كل الـ moods
+                  if (state is LoadingGetAllMoodsState) {
+                    return const Center(
+                      child: CircularProgressIndicator(color: AppTheme.amber),
+                    );
+                  }
+
+                  /// حالة الخطأ عند الجلب
+                  if (state is ErrorGetAllMoodsState) {
+                    return Center(
+                      child: Text(
+                        state.message,
+                        style: textTheme.titleMedium?.copyWith(
+                          color: AppTheme.deepRose,
+                        ),
                       ),
-                    ),
-                  ),
-                );
-              } else if (state is SuccessGetAllMoodsState &&
-                  state.allMoods.isEmpty) {
-                return Expanded(
-                  child: Center(
-                    child: Column(
-                      children: [
-                        Text(
-                          "You don't have Journalist",
-                          style: textTheme.titleMedium!.copyWith(
+                    );
+                  }
+
+                  /// حالة النجاح
+                  if (state is SuccessGetAllMoodsState) {
+                    final moods = state.allMoods;
+
+                    /// لو فاضي
+                    if (moods.isEmpty) {
+                      return Center(
+                        child: Text(
+                          "You don't have any journal moods.",
+                          style: textTheme.titleMedium?.copyWith(
                             color: AppTheme.deepRose,
                           ),
                         ),
-                      ],
-                    ),
-                  ),
-                );
-              } else if (state is SuccessGetAllMoodsState) {
-                final allMoods = state.allMoods;
-                return Expanded(
-                  child: ListView.separated(
-                    separatorBuilder: (context, index) =>
-                        SizedBox(height: 14.h),
-                    itemCount: allMoods.length,
-                    itemBuilder: (context, index) {
-                      return JournalItem(
-                        index: index,
-                        onDelete: () async {
-                          await contextB.deleteMode(moodId: index + 1);
-                        },
-                        mood: allMoods[index],
                       );
-                    },
-                  ),
-                );
-              } else {
-                return SizedBox();
-              }
-            },
+                    }
+
+                    /// عرض الليست
+                    return ListView.separated(
+                      itemCount: moods.length,
+                      separatorBuilder: (_, _) => SizedBox(height: 14.h),
+                      itemBuilder: (context, index) {
+                        final mood = moods[index];
+                        return JournalItem(
+                          mood: mood,
+                          onDelete: () async {
+                            await moodsCubit.deleteMode(moodId: mood.id ?? 0);
+                          },
+                        );
+                      },
+                    );
+                  }
+
+                  /// الحالة الافتراضية
+                  return const SizedBox.shrink();
+                },
+              ),
+            ),
           ),
         ],
       ),

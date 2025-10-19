@@ -2,11 +2,28 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moodly_j/core/theme/app_theme.dart';
 import 'package:moodly_j/features/home/presentation/home_screen.dart';
+import 'package:moodly_j/features/moods/presentation/widgets/elvated_button.dart';
+import 'package:moodly_j/features/on_boarding_screen/presentation/widgets/start_bottom_sheet.dart';
+import 'package:moodly_j/features/settings/widgets/notification_setting.dart';
+import 'package:moodly_j/features/settings/widgets/settign_item_lable.dart';
+
+import '../widgets/custom_input_field.dart';
 
 // ignore: must_be_immutable
-class OnBoardingScreen extends StatelessWidget {
+class OnBoardingScreen extends StatefulWidget {
   static const String routeName = "OnBoardingScreen";
   const OnBoardingScreen({super.key});
+
+  @override
+  State<OnBoardingScreen> createState() => _OnBoardingScreenState();
+}
+
+class _OnBoardingScreenState extends State<OnBoardingScreen> {
+  bool reminderSelected = false;
+  String reminder = "Off";
+  final notificationController = ValueNotifier<bool>(true);
+  TextEditingController nameController = TextEditingController();
+  final GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +33,7 @@ class OnBoardingScreen extends StatelessWidget {
         resizeToAvoidBottomInset: false,
         backgroundColor: AppTheme.white,
         body: Padding(
-          padding: EdgeInsets.all(8.r),
+          padding: EdgeInsets.all(20.r),
           child: Column(
             children: [
               SizedBox(height: 30.h),
@@ -47,9 +64,14 @@ class OnBoardingScreen extends StatelessWidget {
                   foregroundColor: AppTheme.black,
                 ),
                 onPressed: () {
-                  Navigator.of(
-                    context,
-                  ).pushReplacementNamed(HomeScreen.routeName);
+                  startBottomSheet(
+                    context: context,
+                    controller: notificationController,
+                    dailyReminder: dailyReminder,
+                    globalKey: _globalKey,
+                    nameController: nameController,
+                    reminderSelected: reminderSelected,
+                  );
                 },
                 child: Text(
                   "Get Started",
@@ -65,5 +87,16 @@ class OnBoardingScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void dailyReminder(dynamic value) {
+    setState(() {
+      reminderSelected = !reminderSelected;
+      if (reminderSelected) {
+        reminder = "Off";
+      } else {
+        reminder = "On";
+      }
+    });
   }
 }

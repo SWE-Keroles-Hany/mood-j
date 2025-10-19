@@ -8,5 +8,6 @@ extension MoodEntityMapper on MoodEntity {
     audioPath: audioPath,
     imgPath: imgPath,
     moodDate: moodDate,
+    id: id,
   );
 }
