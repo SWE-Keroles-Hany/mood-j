@@ -4,12 +4,15 @@ class MoodEntity {
   DateTime moodDate;
   String? imgPath;
   String? audioPath;
+  int? id;
 
   MoodEntity({
     required this.description,
     required this.emoji,
     required this.moodDate,
     this.audioPath,
+    this.id,
+
     this.imgPath,
   });
 }

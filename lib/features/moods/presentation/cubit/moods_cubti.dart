@@ -43,4 +43,14 @@ class MoodsCubit extends Cubit<MoodsStates> {
       },
     );
   }
+
+  Future<void> getMoodImage({required int index}) async {
+    emit(LoadingGetImg());
+    final result = moods[index].imgPath;
+    if (result == null) {
+      emit(ErrorGetImg());
+    } else {
+      emit(SuccessGetImg(result));
+    }
+  }
 }

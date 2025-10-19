@@ -6,6 +6,7 @@ import 'package:moodly_j/core/service_locator/get_it.dart';
 import 'package:moodly_j/core/theme/app_theme.dart';
 import 'package:moodly_j/features/home/presentation/home_screen.dart';
 import 'package:moodly_j/features/moods/presentation/cubit/moods_cubti.dart';
+import 'package:moodly_j/features/on_boarding_screen/presentation/on_boarding_screen.dart';
 
 void main() {
   setup();

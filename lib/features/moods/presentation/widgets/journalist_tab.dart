@@ -1,12 +1,9 @@
-// import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moodly_j/core/theme/app_theme.dart';
-import 'package:moodly_j/features/home/widgets/custom_button.dart';
 import 'package:moodly_j/features/moods/presentation/cubit/moods_cubti.dart';
 import 'package:moodly_j/features/moods/presentation/cubit/moods_states.dart';
-import 'package:moodly_j/features/moods/presentation/screens/add_mood_screen.dart';
 import 'package:moodly_j/features/moods/presentation/widgets/journal_item.dart';
 
 class JournalistTab extends StatefulWidget {
@@ -31,7 +28,6 @@ class _JournalistTabState extends State<JournalistTab> {
       padding: EdgeInsets.all(12.r),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
-        // mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Text(
             textAlign: TextAlign.center,
@@ -80,7 +76,6 @@ class _JournalistTabState extends State<JournalistTab> {
                 );
               } else if (state is SuccessGetAllMoodsState) {
                 final allMoods = state.allMoods;
-                print(allMoods.last.imgPath);
                 return Expanded(
                   child: ListView.separated(
                     separatorBuilder: (context, index) =>
@@ -88,6 +83,7 @@ class _JournalistTabState extends State<JournalistTab> {
                     itemCount: allMoods.length,
                     itemBuilder: (context, index) {
                       return JournalItem(
+                        index: index,
                         onDelete: () async {
                           await contextB.deleteMode(moodId: index + 1);
                         },

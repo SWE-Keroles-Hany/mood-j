@@ -13,19 +13,20 @@ class OnBoardingScreen extends StatelessWidget {
     final textStyle = Theme.of(context).textTheme;
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         backgroundColor: AppTheme.white,
         body: Padding(
           padding: EdgeInsets.all(8.r),
           child: Column(
             children: [
-              SizedBox(height: 50.h),
+              SizedBox(height: 30.h),
+              Text("Welcome to MoodJ", style: textStyle.titleLarge),
+              SizedBox(height: 30.h),
               ClipRRect(
                 borderRadius: BorderRadiusGeometry.circular(16.r),
                 child: Image.asset("assets/images/first-img.jpg", width: 320.w),
               ),
-              SizedBox(height: 20.h),
-              Text("Welcome to MoodJ", style: textStyle.titleLarge),
-              SizedBox(height: 16.h),
+              SizedBox(height: 30.h),
               Text(
                 textAlign: TextAlign.center,
                 style: textStyle.titleMedium,

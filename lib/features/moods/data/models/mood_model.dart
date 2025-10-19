@@ -1,4 +1,3 @@
-import 'package:flutter_cache_manager/file.dart';
 
 class MoodModel {
   String description;

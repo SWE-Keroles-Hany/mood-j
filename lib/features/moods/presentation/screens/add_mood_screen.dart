@@ -16,8 +16,6 @@ import 'package:moodly_j/features/moods/presentation/widgets/feature_lable.dart'
 import 'package:moodly_j/features/moods/presentation/widgets/feeling_input_field.dart';
 import 'package:moodly_j/features/moods/presentation/widgets/pro_item.dart';
 import 'package:moodly_j/features/moods/presentation/widgets/voice_recorder.dart';
-import 'package:voice_note_kit/player/audio_player_widget.dart';
-import 'package:voice_note_kit/player/player_enums/player_enums.dart';
 
 class AddMoodScreen extends StatefulWidget {
   static const String routeName = "AddMoodScreen";

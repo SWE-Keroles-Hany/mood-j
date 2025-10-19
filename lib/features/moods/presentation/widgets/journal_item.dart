@@ -10,8 +10,14 @@ import 'package:moodly_j/features/moods/presentation/screens/journal_details.dar
 
 // ignore: must_be_immutable
 class JournalItem extends StatelessWidget {
-  JournalItem({super.key, required this.mood, required this.onDelete});
+  JournalItem({
+    required this.index,
+    super.key,
+    required this.mood,
+    required this.onDelete,
+  });
   final MoodEntity mood;
+  final int index;
   final Function()? onDelete;
   DateFormat dateFormat = DateFormat.yMMMMd('en_US');
   @override
@@ -23,7 +29,7 @@ class JournalItem extends StatelessWidget {
         onTap: () async {
           Navigator.of(
             context,
-          ).pushNamed(JournalDetails.routeName, arguments: mood);
+          ).pushNamed(JournalDetailsScreen.routeName, arguments: mood);
         },
         child: Container(
           padding: EdgeInsets.all(10.r),

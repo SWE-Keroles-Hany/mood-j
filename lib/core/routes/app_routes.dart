@@ -8,7 +8,7 @@ class AppRoutes {
   static Map<String, Widget Function(BuildContext)> routes = {
     OnBoardingScreen.routeName: (context) => OnBoardingScreen(),
     AddMoodScreen.routeName: (context) => AddMoodScreen(),
-    JournalDetails.routeName: (context) => JournalDetails(),
+    JournalDetailsScreen.routeName: (context) => JournalDetailsScreen(),
 
     HomeScreen.routeName: (context) => HomeScreen(),
   };
