@@ -5,7 +5,6 @@ import 'package:moodly_j/core/bloc_observer.dart';
 import 'package:moodly_j/core/routes/app_routes.dart';
 import 'package:moodly_j/core/service_locator/get_it.dart';
 import 'package:moodly_j/core/theme/app_theme.dart';
-import 'package:moodly_j/features/home/presentation/home_screen.dart';
 import 'package:moodly_j/features/moods/presentation/cubit/moods_cubti.dart';
 import 'package:moodly_j/features/on_boarding_screen/presentation/screens/on_boarding_screen.dart';
 
@@ -14,12 +13,12 @@ void main() {
 
   setup();
   runApp(
-    BlocProvider(create: (_) => getIt<MoodsCubit>(), child: const MyApp()),
+    BlocProvider(create: (_) => getIt<MoodsCubit>(), child: const MoodJApp()),
   );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class MoodJApp extends StatelessWidget {
+  const MoodJApp({super.key});
 
   @override
   Widget build(BuildContext context) {
