@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:moodly_j/core/theme/app_theme.dart';
 import 'package:moodly_j/features/home/presentation/home_tab.dart';
 import 'package:moodly_j/features/moods/presentation/widgets/journalist_tab.dart';
+import 'package:moodly_j/features/settings/settings_tab.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = "HomeScreen";
@@ -13,7 +14,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
-  final tabs = [HomeTab(), JournalistTab()];
+  final tabs = [HomeTab(), JournalistTab(), SettingsTab()];
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +40,10 @@ class _HomeScreenState extends State<HomeScreen> {
             BottomNavigationBarItem(
               label: "My Journalist",
               icon: Icon(Icons.bookmark_border_rounded),
+            ),
+            BottomNavigationBarItem(
+              label: "Settings",
+              icon: Icon(Icons.settings),
             ),
           ],
         ),
