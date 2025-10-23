@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moodly_j/core/theme/app_theme.dart';
 
+// ignore: must_be_immutable
 class CustomInputField extends StatelessWidget {
   CustomInputField({
     super.key,
@@ -14,6 +15,7 @@ class CustomInputField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       validator: validator,
       controller: nameController,
       decoration: InputDecoration(

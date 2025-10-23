@@ -5,7 +5,8 @@ import 'package:moodly_j/features/moods/data/data_sources/moods_data_source.dart
 import 'package:moodly_j/features/moods/data/models/mood_model.dart';
 
 class SqlMoodsDataSource implements MoodsDataSource {
-  LocalDatabase localDB = LocalDatabase();
+  final LocalDatabase localDB;
+  SqlMoodsDataSource(this.localDB);
   @override
   Future<void> addMood({required MoodModel moodModel}) async {
     try {

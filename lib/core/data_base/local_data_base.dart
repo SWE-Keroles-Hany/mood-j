@@ -1,10 +1,11 @@
 import 'package:moodly_j/core/failure/app_exception.dart';
-import 'package:moodly_j/core/models/user_model.dart';
+import 'package:moodly_j/features/on_boarding_screen/data/models/user_model.dart';
 import 'package:moodly_j/features/moods/data/models/mood_model.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
 class LocalDatabase {
+  //! ========================= SETUP =========================
   static Database? _dataBase;
 
   Future<Database?> get db async {
@@ -17,27 +18,29 @@ class LocalDatabase {
   }
 
   Future<Database> initialDb() async {
-    String databasepath = await getDatabasesPath();
-    String path = join(databasepath, 'userMoods.db');
+    String databasePath = await getDatabasesPath();
+    String path = join(databasePath, 'userMoods.db');
+
     Database mydb = await openDatabase(
       path,
       version: 1,
       onCreate: _onCreate,
       onUpgrade: _onUpgrade,
     );
+
     return mydb;
   }
 
   void _onUpgrade(Database db, int oldVersion, int newVersion) {
-    // handle migrations here
+    // Handle DB migrations if needed
   }
 
   Future<void> _onCreate(Database db, int version) async {
-    // نفذ كل CREATE statement لوحده أو استخدم batch
     Batch batch = db.batch();
 
+    // ---------- User Table ----------
     batch.execute('''
-      CREATE TABLE users (
+      CREATE TABLE user (
         name TEXT NOT NULL,
         language TEXT NOT NULL DEFAULT 'en',
         theme TEXT NOT NULL DEFAULT 'light',
@@ -49,6 +52,7 @@ class LocalDatabase {
       );
     ''');
 
+    // ---------- Mood Table ----------
     batch.execute('''
       CREATE TABLE moods (
         moodID INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
@@ -63,7 +67,57 @@ class LocalDatabase {
     await batch.commit(noResult: true);
   }
 
-  // ---------- Insert Mood ----------
+  //! ========================= USER SECTION =========================
+
+  /// Create user (single-row table)
+  Future<int> createUser({required UserModel userModel}) async {
+    Database? mydb = await db;
+
+    String sql = '''
+      INSERT INTO user (
+        name, language, theme, notificationTime, todayMood, totalMoods, writingStreak, mostFrequent
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    ''';
+
+    int response = await mydb!.rawInsert(sql, [
+      userModel.name,
+      userModel.language,
+      userModel.theme,
+      userModel.notificationTime?.toIso8601String() ?? '20:00',
+      userModel.todayMood,
+      userModel.totalMoods ?? 0,
+      userModel.writingStreak ?? 0,
+      userModel.mostFrequent,
+    ]);
+
+    return response;
+  }
+
+  /// Update user fields (supports multiple or single field updates)
+  Future<int> updateUser(Map<String, dynamic> fields) async {
+    final mydb = await db;
+    if (fields.isEmpty) return 0;
+    final convertedFields = fields.map((k, v) {
+      final value = v is DateTime ? v.toIso8601String() : v;
+      return MapEntry(k, value);
+    });
+    final columns = convertedFields.keys.map((k) => '$k = ?').join(', ');
+    final values = convertedFields.values.toList();
+    String sql = 'UPDATE user SET $columns';
+    return await mydb!.rawUpdate(sql, values);
+  }
+
+  /// Get the single user record
+  Future<UserModel?> getUser() async {
+    Database? mydb = await db;
+    final rows = await mydb!.query('user', limit: 1);
+    if (rows.isEmpty) return null;
+    return UserModel.fromMap(rows.first);
+  }
+
+  //! ========================= MOODS SECTION =========================
+
+  /// Insert a new mood
   Future<int> addMood({required MoodModel moodModel}) async {
     Database? mydb = await db;
     final moodDateStr = moodModel.moodDate.toIso8601String();
@@ -83,31 +137,7 @@ class LocalDatabase {
     return response;
   }
 
-  // ---------- Create User (assume single row user) ----------
-  Future<int> createUser({required UserModel userModel}) async {
-    Database? mydb = await db;
-
-    String sql = '''
-      INSERT INTO users (
-        name, language, theme, notificationTime, todayMood, totalMoods, writingStreak, mostFrequent
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
-    ''';
-
-    int response = await mydb!.rawInsert(sql, [
-      userModel.name,
-      userModel.language,
-      userModel.theme,
-      userModel.notificationTime?.toIso8601String() ?? '20:00',
-      userModel.todayMood,
-      userModel.totalMoods ?? 0,
-      userModel.writingStreak ?? 0,
-      userModel.mostFrequent,
-    ]);
-
-    return response;
-  }
-
-  // ---------- Read Generic ----------
+  /// Get all moods as list of maps
   Future<List<Map<String, dynamic>>> readData({
     required String tableName,
   }) async {
@@ -118,28 +148,12 @@ class LocalDatabase {
     return response;
   }
 
-  // ---------- Update User (single-row user) ----------
-  Future<int> updateUser({
-    required String columnName,
-    required dynamic value,
-  }) async {
-    Database? mydb = await db;
-
-    // convert DateTime if needed
-    final paramValue = value is DateTime ? value.toIso8601String() : value;
-
-    String sql = "UPDATE users SET $columnName = ?";
-    int response = await mydb!.rawUpdate(sql, [paramValue]);
-    return response;
-  }
-
-  // ---------- Delete Mood ----------
+  /// Delete mood by ID
   Future<int> deleteMood({required int id}) async {
     try {
       Database? mydb = await db;
       String sql = "DELETE FROM moods WHERE moodID = ?";
       int response = await mydb!.rawDelete(sql, [id]);
-
       return response;
     } catch (e) {
       print(e.toString());
@@ -147,18 +161,10 @@ class LocalDatabase {
     }
   }
 
-  // ---------- Helpers: get all moods as MoodModel ----------
+  /// Get all moods as list of MoodModel
   Future<List<MoodModel>> getAllMoods() async {
     Database? mydb = await db;
     final rows = await mydb!.query('moods', orderBy: 'moodDate DESC');
     return rows.map((r) => MoodModel.fromMap(r)).toList();
-  }
-
-  // ---------- Helper: getUser (single row) ----------
-  Future<UserModel?> getUser() async {
-    Database? mydb = await db;
-    final rows = await mydb!.query('users', limit: 1);
-    if (rows.isEmpty) return null;
-    return UserModel.fromMap(rows.first);
   }
 }

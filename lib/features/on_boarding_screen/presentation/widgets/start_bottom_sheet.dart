@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moodly_j/core/theme/app_theme.dart';
+import 'package:moodly_j/core/ui_uitils.dart';
 import 'package:moodly_j/features/home/presentation/home_screen.dart';
 import 'package:moodly_j/features/moods/presentation/widgets/elvated_button.dart';
+import 'package:moodly_j/features/on_boarding_screen/domain/enitities/user_entity.dart';
+import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/create_user.dart';
+import 'package:moodly_j/features/on_boarding_screen/presentation/cubit/user_cubit.dart';
+import 'package:moodly_j/features/on_boarding_screen/presentation/cubit/user_states.dart';
 import 'package:moodly_j/features/on_boarding_screen/presentation/widgets/custom_input_field.dart';
 import 'package:moodly_j/features/settings/widgets/notification_setting.dart';
 
@@ -37,29 +43,52 @@ Future<dynamic> startBottomSheet({
                 children: [
                   CustomInputField(
                     validator: (input) {
-                      if (input == null || input.isEmpty || input.length < 3) {
-                        return "Invalid Name";
+                      if (input == null ||
+                          input.trim().isEmpty ||
+                          input.length < 3) {
+                        return "Name Can't be less than 3 characters";
                       }
                       return null;
                     },
                     nameController: nameController,
                   ),
                   SizedBox(height: 20.h),
-                  NotificationSetting(
-                    reminderMe: reminderSelected,
-                    controller: controller,
-                    onChanged: dailyReminder,
-                    subTitle: "Notification",
-                    title: "Daily Reminder",
-                  ),
-                  SizedBox(height: 20.h),
-                  ElvatedButton(
-                    title: "Go",
-                    onPressed: () {
-                      if (globalKey.currentState!.validate()) {
+
+                  BlocConsumer<UserCubit, UserStates>(
+                    builder: (context, state) {
+                      if (state is LoadingCreateUserState) {
+                        return Center(child: CircularProgressIndicator());
+                      }
+                      return ElvatedButton(
+                        title: "Go",
+                        onPressed: () async {
+                          if (globalKey.currentState!.validate()) {
+                            await BlocProvider.of<UserCubit>(
+                              context,
+                            ).createUser(
+                              userEntity: UserEntity(
+                                language: 'en',
+                                mostFrequent: 'happy',
+                                notificationTime: DateTime.now(),
+                                theme: 'dark',
+                                todayMood: 'happy',
+                                totalMoods: 1,
+                                writingStreak: 2,
+                                name: nameController.text,
+                              ),
+                            );
+                          }
+                        },
+                      );
+                    },
+                    listener: (context, state) {
+                      if (state is SuccessCreateUserState) {
                         Navigator.of(
                           context,
                         ).pushReplacementNamed(HomeScreen.routeName);
+                      } else if (state is ErrorCreateUserState) {
+                        Navigator.of(context).pop();
+                        UiUtils.showMessage(context, state.message, false);
                       }
                     },
                   ),
