@@ -35,7 +35,7 @@ class _AddMoodScreenState extends State<AddMoodScreen> {
     OurEmojis.happy.toString(),
     OurEmojis.calm.toString(),
     OurEmojis.excited.toString(),
-    OurEmojis.bullying.toString(),
+    OurEmojis.boring.toString(),
   ];
 
   @override

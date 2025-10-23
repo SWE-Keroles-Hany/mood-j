@@ -65,13 +65,7 @@ Future<dynamic> startBottomSheet({
                               context,
                             ).createUser(
                               userEntity: UserEntity(
-                                language: 'en',
-                                mostFrequent: 'happy',
                                 notificationTime: DateTime.now(),
-                                theme: 'dark',
-                                todayMood: 'happy',
-                                totalMoods: 1,
-                                writingStreak: 2,
                                 name: nameController.text,
                               ),
                             );
@@ -84,6 +78,7 @@ Future<dynamic> startBottomSheet({
                         Navigator.of(
                           context,
                         ).pushReplacementNamed(HomeScreen.routeName);
+                        BlocProvider.of<UserCubit>(context).getUser();
                       } else if (state is ErrorCreateUserState) {
                         Navigator.of(context).pop();
                         UiUtils.showMessage(context, state.message, false);

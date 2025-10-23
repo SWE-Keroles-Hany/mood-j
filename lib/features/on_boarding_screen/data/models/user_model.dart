@@ -11,10 +11,10 @@ class UserModel {
   UserModel({
     required this.name,
     this.language = "en",
-    this.mostFrequent,
+    this.mostFrequent = '--',
     this.notificationTime,
     this.theme = "light",
-    this.todayMood,
+    this.todayMood = '--',
     this.totalMoods = 0,
     this.writingStreak = 0,
   });

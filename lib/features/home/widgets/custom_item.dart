@@ -48,16 +48,16 @@ class CustomItem extends StatelessWidget {
         mainAxisSize: MainAxisSize.max,
         children: [
           Text(title, style: textTheme.titleSmall!.copyWith(color: color)),
-          SizedBox(height: 6.h),
+          SizedBox(height: 12.h),
           fixedIcon
               ? Image.asset(icon ?? "", width: 40.w, fit: BoxFit.fill)
               : Text(emoji.toString(), style: textTheme.titleLarge),
           // Container(child: emoji,)
-          SizedBox(height: 6.h),
+          SizedBox(height: 12.h),
           Text(
             result,
             style: textTheme.titleLarge!.copyWith(
-              fontSize: 28.sp,
+              fontSize: 25.sp,
               color: color,
             ),
           ),

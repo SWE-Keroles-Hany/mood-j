@@ -10,12 +10,12 @@ class UserEntity {
 
   UserEntity({
     required this.name,
-    this.language,
-    this.mostFrequent,
+    this.language = 'en',
+    this.mostFrequent = '--',
     this.notificationTime,
-    this.theme,
-    this.todayMood,
-    this.totalMoods,
-    this.writingStreak,
+    this.theme = 'light',
+    this.todayMood = '--',
+    this.totalMoods = 0,
+    this.writingStreak = 0,
   });
 }

@@ -39,6 +39,8 @@ class SqlUserDataSource implements UserDataSource {
 
   @override
   Future<UserModel?> getUser() async {
+    //! all user moods --> lenght , most freq
+    //!
     try {
       final user = await localDatabase.getUser();
       return user;
