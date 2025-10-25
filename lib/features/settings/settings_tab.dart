@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moodly_j/core/theme/app_theme.dart';
+import 'package:moodly_j/features/moods/presentation/widgets/elvated_button.dart';
 import 'package:moodly_j/features/settings/widgets/notification_setting.dart';
 import 'package:moodly_j/features/settings/widgets/settign_item_lable.dart';
 import 'package:moodly_j/features/settings/widgets/setting_item.dart';
@@ -30,46 +31,51 @@ class _SettingsTabState extends State<SettingsTab> {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     return Container(
-      padding: EdgeInsets.all(16.r),
+      padding: EdgeInsets.all(22.r),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
 
         children: [
-          //! Settings
-          Text(
-            textAlign: TextAlign.center,
-            "Settings",
-            style: textTheme.titleMedium!.copyWith(
-              fontSize: 23.sp,
-              fontWeight: FontWeight.bold,
-              color: AppTheme.black,
+          Container(
+            height: 120.h,
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Colors.blue,
+                width: 3.w,
+                style: BorderStyle.solid,
+              ),
+              shape: BoxShape.circle,
+              image: DecorationImage(
+                image: AssetImage("assets/images/first-img.jpg"),
+              ),
             ),
           ),
-          SizedBox(height: 18.h),
-          //! Apperance
-          SettignItemLable(title: "Apperance"),
-          SizedBox(height: 5.h),
-          SettingItem(
-            controller: themeController,
-            onChanged: onThemeChange,
-            subTitle: theme,
-            title: "Theme",
+          SizedBox(height: 14.h),
+          Center(
+            child: Text(
+              "Keroles Hany",
+              style: textTheme.titleMedium!.copyWith(
+                fontSize: 22.sp,
+                fontWeight: FontWeight.bold,
+                color: AppTheme.black,
+              ),
+            ),
           ),
-
-          //! Apperance
-          SizedBox(height: 15.h),
-          //! Apperance
-          SettignItemLable(title: "Language"),
-          SizedBox(height: 5.h),
+          IconButton(
+            onPressed: () {
+              // showModalBottomSheet(context: context, builder: builder);
+            },
+            icon: Icon(Icons.edit, size: 30.r, color: AppTheme.blue),
+          ),
+          SizedBox(height: 20.h),
           SettingItem(
             controller: lanaugeController,
             onChanged: onLanguageChange,
             subTitle: language,
             title: "Language",
           ),
-          SizedBox(height: 15.h),
-
-          SettignItemLable(title: "Daily Reminder"),
+          SizedBox(height: 5.h),
+          Divider(color: AppTheme.grey, indent: 50.w, endIndent: 50.w),
           SizedBox(height: 5.h),
           NotificationSetting(
             reminderMe: reminderSelected,
@@ -78,6 +84,9 @@ class _SettingsTabState extends State<SettingsTab> {
             subTitle: "Notification",
             title: "Daily Reminder",
           ),
+          // SizedBox(height: 5.h),
+          // Divider(color: AppTheme.grey, indent: 50.w, endIndent: 50.w),
+          // SizedBox(height: 5.h),
         ],
       ),
     );

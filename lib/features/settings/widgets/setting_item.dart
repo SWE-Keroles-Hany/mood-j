@@ -3,6 +3,7 @@ import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moodly_j/core/theme/app_theme.dart';
 
+// ignore: must_be_immutable
 class SettingItem extends StatefulWidget {
   SettingItem({
     super.key,
@@ -27,10 +28,10 @@ class _SettingItemState extends State<SettingItem> {
       children: [
         Container(
           decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 228, 220, 224),
+            color: const Color.fromARGB(255, 245, 231, 238),
             borderRadius: BorderRadius.circular(18.r),
           ),
-          padding: EdgeInsets.all(12.r),
+          padding: EdgeInsets.symmetric(horizontal: 12.r, vertical: 6.r),
           child: Row(
             children: [
               Column(
@@ -60,8 +61,8 @@ class _SettingItemState extends State<SettingItem> {
                 controller: widget.controller,
                 activeColor: AppTheme.blue,
                 borderRadius: BorderRadius.all(Radius.circular(16.r)),
-                width: 60.w,
-                height: 25.h,
+                width: 55.w,
+                height: 20.h,
                 enabled: true,
                 disabledOpacity: 0.5.r,
               ),

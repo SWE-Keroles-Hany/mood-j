@@ -29,7 +29,7 @@ class _JournalistTabState extends State<JournalistTab> {
     final textTheme = Theme.of(context).textTheme;
 
     return Padding(
-      padding: EdgeInsets.all(12.r),
+      padding: EdgeInsets.all(20.r),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
@@ -40,7 +40,7 @@ class _JournalistTabState extends State<JournalistTab> {
             style: textTheme.titleMedium?.copyWith(
               color: AppTheme.black,
               fontWeight: FontWeight.bold,
-              fontSize: 25.sp,
+              fontSize: 20.sp,
             ),
           ),
           SizedBox(height: 14.h),

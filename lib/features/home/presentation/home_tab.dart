@@ -49,7 +49,7 @@ class _HomeTabState extends State<HomeTab> {
     final textTheme = Theme.of(context).textTheme;
     return SingleChildScrollView(
       child: Padding(
-        padding: EdgeInsets.all(12.r),
+        padding: EdgeInsets.all(22.r),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [

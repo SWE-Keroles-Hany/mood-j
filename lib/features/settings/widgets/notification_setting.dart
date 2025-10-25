@@ -30,10 +30,10 @@ class _NotificationSettingState extends State<NotificationSetting> {
       children: [
         Container(
           decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 228, 220, 224),
+            color: const Color.fromARGB(255, 245, 231, 238),
             borderRadius: BorderRadius.circular(18.r),
           ),
-          padding: EdgeInsets.all(18.r),
+          padding: EdgeInsets.symmetric(horizontal: 12.r, vertical: 14.r),
           child: Column(
             children: [
               Row(
@@ -53,7 +53,7 @@ class _NotificationSettingState extends State<NotificationSetting> {
                     activeColor: AppTheme.blue,
                     borderRadius: BorderRadius.all(Radius.circular(16.r)),
                     width: 55.w,
-                    height: 22.h,
+                    height: 20.h,
                     enabled: true,
                     disabledOpacity: 0.5.r,
                   ),
