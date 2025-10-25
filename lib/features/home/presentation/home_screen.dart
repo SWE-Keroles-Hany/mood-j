@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:moodly_j/core/service_locator/get_it.dart';
 import 'package:moodly_j/core/theme/app_theme.dart';
 import 'package:moodly_j/features/home/presentation/home_tab.dart';
+import 'package:moodly_j/features/moods/presentation/cubit/moods_cubti.dart';
 import 'package:moodly_j/features/moods/presentation/widgets/journalist_tab.dart';
 import 'package:moodly_j/features/on_boarding_screen/presentation/cubit/user_cubit.dart';
 import 'package:moodly_j/features/settings/settings_tab.dart';
@@ -16,12 +17,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
-  final tabs = [HomeTab(), JournalistTab(), SettingsTab()];
-  @override
-  void initState() {
-    getIt<UserCubit>().getUser();
-    super.initState();
-  }
+  final List<StatefulWidget> tabs = [HomeTab(), JournalistTab(), SettingsTab()];
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +32,13 @@ class _HomeScreenState extends State<HomeScreen> {
           currentIndex: selectedIndex,
           onTap: (value) {
             selectedIndex = value;
+            if (value == 0) {
+              getIt<MoodsCubit>().getMoodToday();
+              getIt<MoodsCubit>().getAllMoods();
+              getIt<MoodsCubit>().getMostFrequentMood();
+              getIt<MoodsCubit>().getWritingStreak();
+            }
+
             setState(() {});
           },
           items: [

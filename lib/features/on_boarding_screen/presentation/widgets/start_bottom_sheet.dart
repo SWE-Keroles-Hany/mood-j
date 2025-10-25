@@ -65,6 +65,8 @@ Future<dynamic> startBottomSheet({
                               context,
                             ).createUser(
                               userEntity: UserEntity(
+                                language: 'en',
+                                theme: 'light',
                                 notificationTime: DateTime.now(),
                                 name: nameController.text,
                               ),

@@ -16,8 +16,18 @@ void main() {
   runApp(
     MultiBlocProvider(
       providers: [
-        BlocProvider(create: (context) => getIt<MoodsCubit>()..getAllMoods()),
-        BlocProvider(create: (context) => getIt<UserCubit>()..isUserCreated()),
+        BlocProvider(
+          create: (context) => getIt<MoodsCubit>()
+            ..getMoodToday()
+            ..getMostFrequentMood()
+            ..getWritingStreak()
+            ..getAllMoods(),
+        ),
+        BlocProvider(
+          create: (context) => getIt<UserCubit>()
+            ..isUserCreated()
+            ..getUser(),
+        ),
       ],
       child: const MoodJApp(),
     ),

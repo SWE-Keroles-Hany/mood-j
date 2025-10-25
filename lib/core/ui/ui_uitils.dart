@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:moodly_j/core/theme/app_theme.dart';
-import 'package:moodly_j/features/home/presentation/home_screen.dart';
-import 'package:moodly_j/features/moods/presentation/widgets/elvated_button.dart';
-import 'package:moodly_j/features/on_boarding_screen/presentation/widgets/custom_input_field.dart';
-import 'package:moodly_j/features/settings/widgets/notification_setting.dart';
 import 'package:toastification/toastification.dart';
 
 class UiUtils {

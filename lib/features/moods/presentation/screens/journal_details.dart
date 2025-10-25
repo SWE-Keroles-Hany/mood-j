@@ -2,9 +2,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:moodly_j/core/get_emoji.dart';
 import 'package:moodly_j/core/theme/app_theme.dart';
 import 'package:moodly_j/features/moods/domain/entities/mood_entity.dart';
 import 'package:moodly_j/features/moods/presentation/widgets/custom_audio_player.dart';
+
 // ignore: must_be_immutable
 class JournalDetailsScreen extends StatefulWidget {
   static const routeName = "JournalDetails";
@@ -57,7 +59,7 @@ class _JournalDetailsScreenState extends State<JournalDetailsScreen> {
             children: [
               Text(
                 textAlign: TextAlign.center,
-                mood?.emoji ?? "",
+                getEmoji(mood!.emoji).$1.toString(),
                 style: TextStyle(fontSize: 60.sp),
               ),
               Text(

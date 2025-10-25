@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 import 'package:moodly_j/core/theme/app_theme.dart';
+import 'package:moodly_j/core/get_emoji.dart';
 import 'package:moodly_j/features/moods/domain/entities/mood_entity.dart';
 import 'package:moodly_j/features/moods/presentation/screens/journal_details.dart';
 
@@ -38,7 +39,10 @@ class JournalItem extends StatelessWidget {
           // crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Expanded(
-              child: Text(mood.emoji, style: TextStyle(fontSize: 40.sp)),
+              child: Text(
+                getEmoji(mood.emoji).$1.toString(),
+                style: TextStyle(fontSize: 40.sp),
+              ),
             ),
             SizedBox(width: 22.w),
             Expanded(

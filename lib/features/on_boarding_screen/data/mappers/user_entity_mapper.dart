@@ -5,11 +5,8 @@ extension UserEntityMapper on UserEntity {
   UserModel get toModel => UserModel(
     name: name,
     language: language,
-    mostFrequent: mostFrequent,
     notificationTime: notificationTime,
     theme: theme,
-    todayMood: todayMood,
-    totalMoods: totalMoods,
-    writingStreak: writingStreak,
+   
   );
 }

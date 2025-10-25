@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moodly_j/core/service_locator/get_it.dart';
-import 'package:moodly_j/core/ui/ui_uitils.dart';
 import 'package:moodly_j/features/home/presentation/home_screen.dart';
 import 'package:moodly_j/features/on_boarding_screen/presentation/cubit/user_cubit.dart';
 import 'package:moodly_j/features/on_boarding_screen/presentation/cubit/user_states.dart';

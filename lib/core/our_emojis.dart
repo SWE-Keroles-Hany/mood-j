@@ -8,4 +8,5 @@ class OurEmojis {
   static Emoji happy = Emoji.byChar(Emojis.smilingFaceWithSmilingEyes)!; // 😊
   static Emoji excited = Emoji.byChar(Emojis.starStruck)!; // 🤩
   static Emoji calm = Emoji.byChar(Emojis.relievedFace)!; // 😌
+  static Emoji question = Emoji.byChar(Emojis.redQuestionMark)!; // ❓
 }

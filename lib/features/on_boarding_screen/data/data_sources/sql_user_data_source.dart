@@ -26,10 +26,6 @@ class SqlUserDataSource implements UserDataSource {
         'name': fields['name'],
         'language': fields['language'],
         'notificationTime': fields['notificationTime'],
-        'todayMood': fields['todayMood'],
-        'totalMoods': fields['totalMoods'],
-        'writingStreak': fields['writingStreak'],
-        'mostFrequent': fields['mostFrequent'],
       });
     } catch (error) {
       log(error.toString());

@@ -1,10 +1,12 @@
-import 'package:emojis/emoji.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:fluentui_system_icons/fluentui_system_icons.dart';
-import 'package:moodly_j/core/our_emojis.dart';
+import 'package:moodly_j/core/service_locator/get_it.dart';
 import 'package:moodly_j/core/theme/app_theme.dart';
+import 'package:moodly_j/core/get_emoji.dart';
+import 'package:moodly_j/features/moods/presentation/cubit/moods_cubti.dart';
+import 'package:moodly_j/features/moods/presentation/cubit/moods_states.dart';
 import 'package:moodly_j/features/moods/presentation/screens/add_mood_screen.dart';
 import 'package:moodly_j/features/home/widgets/custom_button.dart';
 import 'package:moodly_j/features/home/widgets/custom_item.dart';
@@ -12,8 +14,34 @@ import 'package:moodly_j/features/on_boarding_screen/presentation/cubit/user_cub
 import 'package:moodly_j/features/on_boarding_screen/presentation/cubit/user_states.dart';
 
 // ignore: must_be_immutable
-class HomeTab extends StatelessWidget {
+class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
+
+  @override
+  State<HomeTab> createState() => _HomeTabState();
+}
+
+class _HomeTabState extends State<HomeTab> {
+  bool flag = true;
+  @override
+  void didChangeDependencies() {
+    if (flag) {
+      _refreshData();
+      flag = false;
+      setState(() {});
+    } else {
+      _refreshData();
+    }
+    super.didChangeDependencies();
+  }
+
+  void _refreshData() {
+    final moodsCubit = getIt<MoodsCubit>();
+    moodsCubit.getAllMoods();
+    moodsCubit.getMoodToday();
+    moodsCubit.getMostFrequentMood();
+    moodsCubit.getWritingStreak();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,80 +99,92 @@ class HomeTab extends StatelessWidget {
                   // childAspectRatio: 1,
                 ),
                 children: [
-                  BlocBuilder<UserCubit, UserStates>(
+                  BlocBuilder<MoodsCubit, MoodsStates>(
+                    buildWhen: (_, current) =>
+                        (current is LoadingGetAllMoodsState ||
+                        current is SuccessGetAllMoodsState ||
+                        current is ErrorGetAllMoodsState),
                     builder: (context, state) {
-                      if (state is LoadingGetUserState) {
+                      if (state is LoadingGetAllMoodsState) {
                         return const Center(child: CircularProgressIndicator());
-                      } else if (state is SuccessGetUserState) {
+                      } else if (state is SuccessGetAllMoodsState) {
                         return CustomItem(
-                          emoji: OurEmojis.sad,
                           icon: "assets/icons/book.png",
                           bgColor: AppTheme.lavender,
                           color: AppTheme.deepPurple,
-                          result: "${state.user.totalMoods}",
+                          result: "${state.allMoods.length}",
                           title: "Total Entries",
                         );
-                      } else if (state is ErrorGetUserState) {
-                        return const Center(
-                          child: Text("Failed to load moods"),
-                        );
+                      } else if (state is ErrorGetAllMoodsState) {
+                        return const Center(child: Text("Error"));
                       }
-
-                      return const SizedBox();
+                      return const Text("noo");
                     },
                   ),
 
-                  BlocBuilder<UserCubit, UserStates>(
+                  BlocBuilder<MoodsCubit, MoodsStates>(
+                    buildWhen: (_, current) =>
+                        (current is MostFrequentMoodLoading ||
+                        current is MostFrequentMoodLoaded ||
+                        current is MostFrequentMoodError),
                     builder: (context, state) {
-                      if (state is LoadingGetUserState) {
+                      if (state is MostFrequentMoodLoading) {
                         return const Center(child: CircularProgressIndicator());
-                      } else if (state is SuccessGetUserState) {
+                      } else if (state is MostFrequentMoodLoaded) {
                         return CustomItem(
                           fixedIcon: false,
-                          emoji: getEmoji("Happy"),
+                          emoji: getEmoji(state.mood.emoji).$1,
                           bgColor: AppTheme.creamYellow,
                           color: AppTheme.darkBrown,
-                          result: "${state.user.mostFrequent}",
+                          result: getEmoji(state.mood.emoji).$2,
                           title: "Most Frequent",
                         );
-                      } else if (state is ErrorGetUserState) {
-                        return const Text("Error");
+                      } else if (state is MostFrequentMoodError) {
+                        return Center(child: const Text("???"));
                       }
                       return const SizedBox();
                     },
                   ),
-                  BlocBuilder<UserCubit, UserStates>(
+                  BlocBuilder<MoodsCubit, MoodsStates>(
+                    buildWhen: (_, current) =>
+                        (current is WritingStreakLoading ||
+                        current is WritingStreakLoaded ||
+                        current is WritingStreakError),
                     builder: (context, state) {
-                      if (state is LoadingGetUserState) {
+                      if (state is WritingStreakLoading) {
                         return const Center(child: CircularProgressIndicator());
-                      } else if (state is SuccessGetUserState) {
+                      } else if (state is WritingStreakLoaded) {
                         return CustomItem(
                           icon: "assets/icons/fire.png",
                           bgColor: AppTheme.lightPink,
                           color: AppTheme.deepRose,
-                          result: "${state.user.writingStreak} Days",
+                          result: "${state.streak} Days",
                           title: "Writing Streak",
                         );
-                      } else if (state is ErrorGetUserState) {
+                      } else if (state is WritingStreakError) {
                         return const Text("Error");
                       }
                       return const SizedBox();
                     },
                   ),
-                  BlocBuilder<UserCubit, UserStates>(
-                    builder: (context, state) {
-                      if (state is LoadingGetUserState) {
+                  BlocBuilder<MoodsCubit, MoodsStates>(
+                    buildWhen: (_, current) =>
+                        current is MoodTodayLoading ||
+                        current is MoodTodayLoaded ||
+                        current is MoodTodayError,
+                    builder: (contexts, statee) {
+                      if (statee is MoodTodayLoading) {
                         return const Center(child: CircularProgressIndicator());
-                      } else if (state is SuccessGetUserState) {
+                      } else if (statee is MoodTodayLoaded) {
                         return CustomItem(
                           fixedIcon: false,
-                          emoji: getEmoji("Happy"),
+                          emoji: getEmoji(statee.mood?.emoji).$1,
                           bgColor: AppTheme.mintGreen,
                           color: AppTheme.forestGreen,
-                          result: state.user.todayMood ?? "—",
+                          result: getEmoji(statee.mood?.emoji).$2,
                           title: "Today's Mood",
                         );
-                      } else if (state is ErrorGetUserState) {
+                      } else if (statee is MoodTodayError) {
                         return const Text("Error");
                       }
                       return const SizedBox();
@@ -167,20 +207,5 @@ class HomeTab extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Emoji? getEmoji(String res) {
-    if (res == "Happy") {
-      return OurEmojis.happy;
-    } else if (res == "Sad") {
-      return OurEmojis.sad;
-    } else if (res == "Angry") {
-      return OurEmojis.angry;
-    } else if (res == "Excited") {
-      return OurEmojis.excited;
-    } else if (res == "Boring") {
-      return OurEmojis.boring;
-    }
-    return null;
   }
 }

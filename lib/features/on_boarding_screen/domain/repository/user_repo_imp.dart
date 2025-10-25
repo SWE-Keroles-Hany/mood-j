@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dartz/dartz.dart';
 import 'package:moodly_j/core/failure/failure.dart';
 import 'package:moodly_j/features/moods/data/data_sources/moods_data_source.dart';
@@ -9,9 +11,9 @@ import 'package:moodly_j/features/on_boarding_screen/domain/enitities/user_entit
 
 class UserRepoImp implements UserRepo {
   final UserDataSource _userDataSource;
-  // final MoodsDataSource _moodsDataSource;
+  final MoodsDataSource _moodsDataSource;
 
-  UserRepoImp(this._userDataSource);
+  UserRepoImp(this._userDataSource, this._moodsDataSource);
   @override
   Future<Either<Failure, void>> createUser({
     required UserModel userModel,
@@ -27,9 +29,22 @@ class UserRepoImp implements UserRepo {
   @override
   Future<Either<Failure, UserEntity>> getUser() async {
     try {
+      final moods = await _moodsDataSource.getAllMoods();
+      await updateUser(
+        fields: {
+          'totalMoods': moods.length,
+          'todayMood':
+              (moods.last.moodDate.day == DateTime.now().day &&
+                  moods.last.moodDate.year == DateTime.now().year &&
+                  moods.last.moodDate.month == DateTime.now().month)
+              ? moods.last
+              : null,
+        },
+      );
       final user = await _userDataSource.getUser();
       return Right(user!.toEntity);
-    } catch (_) {
+    } catch (e) {
+      log(e.toString());
       return Left(Failure("Some Thing Went Wrong, try again!"));
     }
   }

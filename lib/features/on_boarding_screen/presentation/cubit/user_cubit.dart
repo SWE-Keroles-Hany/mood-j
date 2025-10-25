@@ -53,8 +53,7 @@ class UserCubit extends Cubit<UserStates> {
         emit(ErrorGetUserState(failure.message));
       },
       (result) {
-        print(result!.name);
-        emit(SuccessGetUserState(result));
+        emit(SuccessGetUserState(result!));
       },
     );
   }

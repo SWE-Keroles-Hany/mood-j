@@ -44,11 +44,7 @@ class LocalDatabase {
         name TEXT NOT NULL,
         language TEXT NOT NULL DEFAULT 'en',
         theme TEXT NOT NULL DEFAULT 'light',
-        notificationTime TEXT NOT NULL DEFAULT '20:00',
-        todayMood TEXT,
-        totalMoods INTEGER NOT NULL DEFAULT 0,
-        writingStreak INTEGER NOT NULL DEFAULT 0,
-        mostFrequent TEXT
+        notificationTime TEXT NOT NULL DEFAULT '20:00'
       );
     ''');
 
@@ -75,8 +71,8 @@ class LocalDatabase {
 
     String sql = '''
       INSERT INTO user (
-        name, language, theme, notificationTime, todayMood, totalMoods, writingStreak, mostFrequent
-      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+        name, language, theme, notificationTime
+      ) VALUES (?,?,?,?)
     ''';
 
     int response = await mydb!.rawInsert(sql, [
@@ -84,10 +80,6 @@ class LocalDatabase {
       userModel.language,
       userModel.theme,
       userModel.notificationTime?.toIso8601String() ?? '20:00',
-      userModel.todayMood,
-      userModel.totalMoods ?? 0,
-      userModel.writingStreak ?? 0,
-      userModel.mostFrequent,
     ]);
 
     return response;

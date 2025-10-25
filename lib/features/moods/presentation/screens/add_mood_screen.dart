@@ -1,11 +1,14 @@
 import 'dart:io';
+import 'package:emojis/emoji.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:moodly_j/core/our_emojis.dart';
+import 'package:moodly_j/core/service_locator/get_it.dart';
 import 'package:moodly_j/core/theme/app_theme.dart';
 import 'package:moodly_j/core/ui/ui_uitils.dart';
+import 'package:moodly_j/features/home/presentation/home_screen.dart';
 import 'package:moodly_j/features/moods/domain/entities/mood_entity.dart';
 import 'package:moodly_j/features/moods/presentation/cubit/moods_cubti.dart';
 import 'package:moodly_j/features/moods/presentation/cubit/moods_states.dart';
@@ -30,12 +33,13 @@ class _AddMoodScreenState extends State<AddMoodScreen> {
   XFile? selectedImg;
   File? recorededFile;
   bool emojiSelected = false;
-  List<String> emojis = [
-    OurEmojis.angry.toString(),
-    OurEmojis.happy.toString(),
-    OurEmojis.calm.toString(),
-    OurEmojis.excited.toString(),
-    OurEmojis.boring.toString(),
+  List<Emoji> emojis = [
+    OurEmojis.angry,
+    OurEmojis.happy,
+    OurEmojis.calm,
+    OurEmojis.excited,
+    OurEmojis.boring,
+    OurEmojis.sad,
   ];
 
   @override
@@ -60,14 +64,14 @@ class _AddMoodScreenState extends State<AddMoodScreen> {
                   itemExtent: 65.r,
                   scrollDirection: Axis.horizontal,
                   itemBuilder: (context, index) => CustomMood(
-                    backgroundColor: selectedEmoji == emojis[index]
+                    backgroundColor: selectedEmoji == emojis[index].name
                         ? AppTheme.blue
                         : null,
                     onPressed: () {
-                      selectedEmoji = emojis[index];
+                      selectedEmoji = emojis[index].name;
                       setState(() {});
                     },
-                    emoji: emojis[index],
+                    emoji: emojis[index].toString(),
                   ),
                   itemCount: emojis.length,
                 ),
@@ -125,7 +129,11 @@ class _AddMoodScreenState extends State<AddMoodScreen> {
                   } else if (state is SuccessAddMoodState) {
                     UiUtils.hideLoading(context);
                     UiUtils.showMessage(context, "Your Mood Added", true);
-                    Navigator.of(context).pop();
+                    Navigator.pop(context);
+                    BlocProvider.of<MoodsCubit>(context).getMoodToday();
+                    BlocProvider.of<MoodsCubit>(context).getAllMoods();
+                    BlocProvider.of<MoodsCubit>(context).getMostFrequentMood();
+                    BlocProvider.of<MoodsCubit>(context).getWritingStreak();
                   }
                 },
                 child: ElvatedButton(onPressed: addMood, title: "Save"),
@@ -166,9 +174,6 @@ class _AddMoodScreenState extends State<AddMoodScreen> {
     if (descriptionController.text.trim().isEmpty || selectedEmoji == null) {
       UiUtils.showMessage(context, "Description And Emoji are Requried", false);
     } else {
-      print("From Ui screen : ${recorededFile?.path}");
-      print("From Ui screen : ${selectedImg?.path}");
-
       final moodEntity = MoodEntity(
         description: descriptionController.text,
         emoji: selectedEmoji ?? "",

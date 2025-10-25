@@ -6,6 +6,9 @@ import 'package:moodly_j/features/moods/data/repository/moods_repository.dart';
 import 'package:moodly_j/features/moods/domain/repository/moods_repository_imp.dart';
 import 'package:moodly_j/features/moods/domain/use_cases/get_all_moods.dart';
 import 'package:moodly_j/features/moods/domain/use_cases/add_mood.dart';
+import 'package:moodly_j/features/moods/domain/use_cases/get_mood_today.dart';
+import 'package:moodly_j/features/moods/domain/use_cases/get_most_frequent_mood.dart';
+import 'package:moodly_j/features/moods/domain/use_cases/get_writing_streak.dart';
 import 'package:moodly_j/features/moods/presentation/cubit/moods_cubti.dart';
 import 'package:moodly_j/features/on_boarding_screen/data/data_sources/sql_user_data_source.dart';
 import 'package:moodly_j/features/on_boarding_screen/data/data_sources/user_data_source.dart';
@@ -29,11 +32,17 @@ void setup() {
   getIt.registerSingleton<AddMood>(AddMood(getIt()));
   getIt.registerSingleton<DeleteMood>(DeleteMood(getIt()));
   getIt.registerSingleton<GetAllMoods>(GetAllMoods(getIt()));
-  getIt.registerSingleton<MoodsCubit>(MoodsCubit(getIt(), getIt(), getIt()));
+  getIt.registerSingleton<GetMoodToday>(GetMoodToday(getIt()));
+  getIt.registerSingleton<GetWritingStreak>(GetWritingStreak(getIt()));
+  getIt.registerSingleton<GetMostFrequentMood>(GetMostFrequentMood(getIt()));
+
+  getIt.registerSingleton<MoodsCubit>(
+    MoodsCubit(getIt(), getIt(), getIt(), getIt(), getIt(), getIt()),
+  );
 
   //! User
   getIt.registerSingleton<UserDataSource>(SqlUserDataSource(getIt()));
-  getIt.registerSingleton<UserRepo>(UserRepoImp(getIt()));
+  getIt.registerSingleton<UserRepo>(UserRepoImp(getIt(), getIt()));
   getIt.registerSingleton<CreateUser>(CreateUser(getIt()));
   getIt.registerSingleton<UpdateUser>(UpdateUser(getIt()));
   getIt.registerSingleton<GetUser>(GetUser(getIt()));

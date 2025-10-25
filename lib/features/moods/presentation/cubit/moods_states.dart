@@ -36,3 +36,42 @@ class SuccessGetAllMoodsState implements MoodsStates {
   final List<MoodEntity> allMoods;
   SuccessGetAllMoodsState(this.allMoods);
 }
+
+//! Most Frequent Mood States
+class MostFrequentMoodLoading extends MoodsStates {}
+
+class MostFrequentMoodLoaded extends MoodsStates {
+  final MoodEntity mood;
+  MostFrequentMoodLoaded(this.mood);
+}
+
+class MostFrequentMoodError extends MoodsStates {
+  final String message;
+  MostFrequentMoodError(this.message);
+}
+
+//! Writing Streak States
+class WritingStreakLoading extends MoodsStates {}
+
+class WritingStreakLoaded extends MoodsStates {
+  final int streak;
+  WritingStreakLoaded(this.streak);
+}
+
+class WritingStreakError extends MoodsStates {
+  final String message;
+  WritingStreakError(this.message);
+}
+
+// ! Mood Today States
+class MoodTodayLoading extends MoodsStates {}
+
+class MoodTodayLoaded extends MoodsStates {
+  final MoodEntity? mood;
+  MoodTodayLoaded(this.mood);
+}
+
+class MoodTodayError extends MoodsStates {
+  final String message;
+  MoodTodayError(this.message);
+}
