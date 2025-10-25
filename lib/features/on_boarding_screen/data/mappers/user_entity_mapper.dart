@@ -7,6 +7,6 @@ extension UserEntityMapper on UserEntity {
     language: language,
     notificationTime: notificationTime,
     theme: theme,
-   
+    imgUrl: imgUrl,
   );
 }

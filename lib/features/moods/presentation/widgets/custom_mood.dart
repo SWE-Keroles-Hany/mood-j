@@ -20,7 +20,9 @@ class CustomMood extends StatelessWidget {
         shape: CircleBorder(),
       ),
       onPressed: onPressed,
-      child: Text(emoji, style: TextStyle(fontSize: 35.sp)),
+      child: Center(
+        child: Text(emoji, style: TextStyle(fontSize: 30.sp)),
+      ),
     );
   }
 }

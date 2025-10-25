@@ -3,12 +3,14 @@ class UserModel {
   DateTime? notificationTime;
   String? language;
   String? theme;
+  String? imgUrl;
 
   UserModel({
     required this.name,
     this.language = "en",
     this.notificationTime,
     this.theme = "light",
+    this.imgUrl,
   });
 
   Map<String, dynamic> toMap() {
@@ -17,6 +19,7 @@ class UserModel {
       'notificationTime': notificationTime?.toIso8601String(),
       'language': language,
       'theme': theme,
+      'imgUrl': imgUrl,
     };
   }
 
@@ -28,6 +31,7 @@ class UserModel {
           : null,
       language: map['language'],
       theme: map['theme'],
+      imgUrl: map['theme'],
     );
   }
 }

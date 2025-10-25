@@ -42,6 +42,7 @@ class LocalDatabase {
     batch.execute('''
       CREATE TABLE user (
         name TEXT NOT NULL,
+        imgPath TEXT,
         language TEXT NOT NULL DEFAULT 'en',
         theme TEXT NOT NULL DEFAULT 'light',
         notificationTime TEXT NOT NULL DEFAULT '20:00'

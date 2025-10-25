@@ -5,6 +5,7 @@ import 'package:moodly_j/core/theme/app_theme.dart';
 import 'package:moodly_j/features/home/presentation/home_tab.dart';
 import 'package:moodly_j/features/moods/presentation/cubit/moods_cubti.dart';
 import 'package:moodly_j/features/moods/presentation/widgets/journalist_tab.dart';
+import 'package:moodly_j/features/on_boarding_screen/presentation/cubit/user_cubit.dart';
 import 'package:moodly_j/features/settings/settings_tab.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -26,6 +27,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void _refreshData() async {
     final moodsCubit = getIt<MoodsCubit>();
+    await getIt<UserCubit>().getUser();
     await moodsCubit.getAllMoods();
     await moodsCubit.getMoodToday();
     await moodsCubit.getMostFrequentMood();
@@ -64,13 +66,10 @@ class _HomeScreenState extends State<HomeScreen> {
               setState(() {});
             },
             items: [
+              BottomNavigationBarItem(label: "Home", icon: Icon(Icons.home)),
               BottomNavigationBarItem(
-                label: "Home",
-                icon: Icon(Icons.home_outlined),
-              ),
-              BottomNavigationBarItem(
-                label: "My Journalist",
-                icon: Icon(Icons.bookmark_border_rounded),
+                label: "My Journal",
+                icon: Icon(Icons.menu_book_rounded),
               ),
               BottomNavigationBarItem(
                 label: "Profile",

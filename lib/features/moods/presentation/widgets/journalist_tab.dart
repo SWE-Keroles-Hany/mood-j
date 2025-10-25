@@ -1,3 +1,5 @@
+import 'package:fluentui_system_icons/fluentui_system_icons.dart'
+    show FluentIcons;
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -40,7 +42,7 @@ class _JournalistTabState extends State<JournalistTab> {
             style: textTheme.titleMedium?.copyWith(
               color: AppTheme.black,
               fontWeight: FontWeight.bold,
-              fontSize: 20.sp,
+              fontSize: 22.sp,
             ),
           ),
           SizedBox(height: 14.h),
@@ -87,11 +89,24 @@ class _JournalistTabState extends State<JournalistTab> {
                     /// لو فاضي
                     if (moods.isEmpty) {
                       return Center(
-                        child: Text(
-                          "You don't have any journal moods.",
-                          style: textTheme.titleMedium?.copyWith(
-                            color: AppTheme.deepRose,
-                          ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(
+                              color: AppTheme.blue,
+                              FluentIcons.document_one_page_24_regular,
+                              size: 40.r,
+                            ),
+                            SizedBox(height: 10.h),
+                            Text(
+                              "Empty Journal",
+                              style: textTheme.titleMedium?.copyWith(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 25.sp,
+                                color: AppTheme.deepRose,
+                              ),
+                            ),
+                          ],
                         ),
                       );
                     }

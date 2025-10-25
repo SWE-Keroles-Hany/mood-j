@@ -5,6 +5,7 @@ extension UserModelMapper on UserModel {
   UserEntity get toEntity => UserEntity(
     name: name,
     language: language,
+    imgUrl: imgUrl,
     notificationTime: notificationTime,
     theme: theme,
   );

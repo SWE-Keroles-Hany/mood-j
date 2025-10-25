@@ -38,7 +38,7 @@ class AppTheme {
         fontSize: 30.sp,
       ),
       titleMedium: TextStyle(
-        fontSize: 20.sp,
+        fontSize: 18.sp,
         color: const Color.fromARGB(255, 138, 118, 118),
       ),
       titleSmall: TextStyle(fontSize: 16.sp, color: black),

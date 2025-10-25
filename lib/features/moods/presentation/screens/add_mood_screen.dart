@@ -59,24 +59,29 @@ class _AddMoodScreenState extends State<AddMoodScreen> {
               FeatureLable(lable: "How's Your Mood"),
               //! Emojiis
               SizedBox(
-                height: 40.h,
+                height: 45.h,
+                // color: Colors.amber,
                 child: ListView.builder(
-                  itemExtent: 65.r,
+                  // itemExtent: 60.r,
+                  // padding: EdgeInsets.all(8),
                   scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) => CustomMood(
-                    backgroundColor: selectedEmoji == emojis[index].name
-                        ? AppTheme.blue
-                        : null,
-                    onPressed: () {
-                      selectedEmoji = emojis[index].name;
-                      setState(() {});
-                    },
-                    emoji: emojis[index].toString(),
+                  itemBuilder: (context, index) => Container(
+                    margin: EdgeInsets.all(1.r),
+                    child: CustomMood(
+                      backgroundColor: selectedEmoji == emojis[index].name
+                          ? AppTheme.blue
+                          : null,
+                      onPressed: () {
+                        selectedEmoji = emojis[index].name;
+                        setState(() {});
+                      },
+                      emoji: emojis[index].toString(),
+                    ),
                   ),
                   itemCount: emojis.length,
                 ),
               ),
-              SizedBox(height: 14.h),
+              SizedBox(height: 20.h),
               FeatureLable(lable: "Attachments"),
               SizedBox(height: 8.h),
               //! Add Photo

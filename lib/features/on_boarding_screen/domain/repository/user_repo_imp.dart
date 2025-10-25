@@ -29,18 +29,6 @@ class UserRepoImp implements UserRepo {
   @override
   Future<Either<Failure, UserEntity>> getUser() async {
     try {
-      final moods = await _moodsDataSource.getAllMoods();
-      await updateUser(
-        fields: {
-          'totalMoods': moods.length,
-          'todayMood':
-              (moods.last.moodDate.day == DateTime.now().day &&
-                  moods.last.moodDate.year == DateTime.now().year &&
-                  moods.last.moodDate.month == DateTime.now().month)
-              ? moods.last
-              : null,
-        },
-      );
       final user = await _userDataSource.getUser();
       return Right(user!.toEntity);
     } catch (e) {

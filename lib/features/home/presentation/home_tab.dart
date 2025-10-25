@@ -52,7 +52,12 @@ class _HomeTabState extends State<HomeTab> {
             ),
             SizedBox(height: 12.h),
             BlocBuilder<UserCubit, UserStates>(
+              buildWhen: (_, current) =>
+                  current is SuccessGetUserState ||
+                  current is ErrorGetUserState ||
+                  current is LoadingGetUserState,
               builder: (context, state) {
+                print("user state $state");
                 if (state is SuccessGetUserState) {
                   return Text(
                     "Hello,${state.user.name}",
@@ -73,7 +78,7 @@ class _HomeTabState extends State<HomeTab> {
               title: Text(
                 "Don't Forget To Write Today!",
                 style: textTheme.titleMedium!.copyWith(
-                  fontSize: 18.sp,
+                  fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
                   color: AppTheme.darkBrown,
                 ),
