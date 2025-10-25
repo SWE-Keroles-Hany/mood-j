@@ -41,7 +41,7 @@ class SuccessGetAllMoodsState implements MoodsStates {
 class MostFrequentMoodLoading extends MoodsStates {}
 
 class MostFrequentMoodLoaded extends MoodsStates {
-  final MoodEntity mood;
+  final MoodEntity? mood;
   MostFrequentMoodLoaded(this.mood);
 }
 

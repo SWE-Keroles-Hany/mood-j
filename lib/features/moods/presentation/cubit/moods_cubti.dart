@@ -73,12 +73,13 @@ class MoodsCubit extends Cubit<MoodsStates> {
   Future<void> getMostFrequentMood() async {
     emit(MostFrequentMoodLoading());
     final result = await _getMostFrequentMood.getMostFrequentMood();
+
     result.fold(
       (failulre) {
         emit(MostFrequentMoodError(failulre.message));
       },
       (result) {
-        emit(MostFrequentMoodLoaded(result!));
+        emit(MostFrequentMoodLoaded(result));
       },
     );
   }

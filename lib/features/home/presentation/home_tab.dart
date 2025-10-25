@@ -16,31 +16,23 @@ import 'package:moodly_j/features/on_boarding_screen/presentation/cubit/user_sta
 // ignore: must_be_immutable
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
-
   @override
   State<HomeTab> createState() => _HomeTabState();
 }
 
 class _HomeTabState extends State<HomeTab> {
-  bool flag = true;
   @override
-  void didChangeDependencies() {
-    if (flag) {
-      _refreshData();
-      flag = false;
-      setState(() {});
-    } else {
-      _refreshData();
-    }
-    super.didChangeDependencies();
+  void initState() {
+    super.initState();
+    _refreshData();
   }
 
-  void _refreshData() {
+  void _refreshData() async {
     final moodsCubit = getIt<MoodsCubit>();
-    moodsCubit.getAllMoods();
-    moodsCubit.getMoodToday();
-    moodsCubit.getMostFrequentMood();
-    moodsCubit.getWritingStreak();
+    await moodsCubit.getAllMoods();
+    await moodsCubit.getMoodToday();
+    await moodsCubit.getMostFrequentMood();
+    await moodsCubit.getWritingStreak();
   }
 
   @override
@@ -133,10 +125,10 @@ class _HomeTabState extends State<HomeTab> {
                       } else if (state is MostFrequentMoodLoaded) {
                         return CustomItem(
                           fixedIcon: false,
-                          emoji: getEmoji(state.mood.emoji).$1,
+                          emoji: getEmoji(state.mood?.emoji).$1,
                           bgColor: AppTheme.creamYellow,
                           color: AppTheme.darkBrown,
-                          result: getEmoji(state.mood.emoji).$2,
+                          result: getEmoji(state.mood?.emoji).$2,
                           title: "Most Frequent",
                         );
                       } else if (state is MostFrequentMoodError) {
@@ -199,7 +191,9 @@ class _HomeTabState extends State<HomeTab> {
               color: AppTheme.leafGreen,
               icon: Icons.add_box_outlined,
               onPressed: () {
-                Navigator.of(context).pushNamed(AddMoodScreen.routeName);
+                Navigator.of(
+                  context,
+                ).pushReplacementNamed(AddMoodScreen.routeName);
               },
               title: "Add Mood",
             ),

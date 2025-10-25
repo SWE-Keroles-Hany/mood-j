@@ -1,3 +1,5 @@
+import 'package:moodly_j/core/our_emojis.dart';
+
 class MoodModel {
   String description;
   String emoji;

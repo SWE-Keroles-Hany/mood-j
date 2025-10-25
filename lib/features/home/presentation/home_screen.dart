@@ -18,6 +18,19 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   int selectedIndex = 0;
   final List<StatefulWidget> tabs = [HomeTab(), JournalistTab(), SettingsTab()];
+  @override
+  void initState() {
+    super.initState();
+    _refreshData();
+  }
+
+  void _refreshData() async {
+    final moodsCubit = getIt<MoodsCubit>();
+    await moodsCubit.getAllMoods();
+    await moodsCubit.getMoodToday();
+    await moodsCubit.getMostFrequentMood();
+    await moodsCubit.getWritingStreak();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,13 +52,14 @@ class _HomeScreenState extends State<HomeScreen> {
             selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
             type: BottomNavigationBarType.fixed,
             currentIndex: selectedIndex,
-            onTap: (value) {
+            onTap: (value) async {
               selectedIndex = value;
+              final moodsCubit = getIt<MoodsCubit>();
               if (value == 0) {
-                getIt<MoodsCubit>().getMoodToday();
-                getIt<MoodsCubit>().getAllMoods();
-                getIt<MoodsCubit>().getMostFrequentMood();
-                getIt<MoodsCubit>().getWritingStreak();
+                await moodsCubit.getMoodToday();
+                await moodsCubit.getAllMoods();
+                await moodsCubit.getMostFrequentMood();
+                await moodsCubit.getWritingStreak();
               }
               setState(() {});
             },

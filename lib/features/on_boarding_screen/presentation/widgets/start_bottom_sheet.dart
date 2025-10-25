@@ -14,7 +14,6 @@ Future<dynamic> startBottomSheet({
   required BuildContext context,
   required GlobalKey<FormState> globalKey,
   required TextEditingController nameController,
-  required ValueNotifier<bool>? controller,
   required bool reminderSelected,
   required Function(dynamic) dailyReminder,
 }) {
@@ -51,7 +50,7 @@ Future<dynamic> startBottomSheet({
                     nameController: nameController,
                   ),
                   SizedBox(height: 20.h),
-          
+
                   BlocConsumer<UserCubit, UserStates>(
                     builder: (context, state) {
                       if (state is LoadingCreateUserState) {

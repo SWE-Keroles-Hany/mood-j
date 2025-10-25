@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:moodly_j/core/theme/app_theme.dart';
 import 'package:moodly_j/features/moods/presentation/widgets/elvated_button.dart';
+import 'package:moodly_j/features/on_boarding_screen/presentation/widgets/start_bottom_sheet.dart';
 import 'package:moodly_j/features/settings/widgets/notification_setting.dart';
 import 'package:moodly_j/features/settings/widgets/settign_item_lable.dart';
 import 'package:moodly_j/features/settings/widgets/setting_item.dart';
@@ -17,6 +19,8 @@ class _SettingsTabState extends State<SettingsTab> {
   final themeController = ValueNotifier<bool>(true);
   final notificationController = ValueNotifier<bool>(true);
   final lanaugeController = ValueNotifier<bool>(true);
+  final nameController = TextEditingController();
+  final GlobalKey<FormState> _globalKey = GlobalKey<FormState>();
 
   //! Theme Variables
   bool lightSelected = true;
@@ -36,36 +40,46 @@ class _SettingsTabState extends State<SettingsTab> {
         crossAxisAlignment: CrossAxisAlignment.stretch,
 
         children: [
-          Container(
-            height: 120.h,
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: Colors.blue,
-                width: 3.w,
-                style: BorderStyle.solid,
-              ),
-              shape: BoxShape.circle,
-              image: DecorationImage(
-                image: AssetImage("assets/images/first-img.jpg"),
-              ),
-            ),
-          ),
-          SizedBox(height: 14.h),
-          Center(
-            child: Text(
-              "Keroles Hany",
-              style: textTheme.titleMedium!.copyWith(
-                fontSize: 22.sp,
-                fontWeight: FontWeight.bold,
-                color: AppTheme.black,
-              ),
-            ),
-          ),
-          IconButton(
-            onPressed: () {
-              // showModalBottomSheet(context: context, builder: builder);
+          GestureDetector(
+            onTap: () async {
+              final ImagePicker picker = ImagePicker();
+              await picker.pickImage(source: ImageSource.gallery);
             },
-            icon: Icon(Icons.edit, size: 30.r, color: AppTheme.blue),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Container(
+                  height: 120.h,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.blueAccent,
+                      width: 3.w,
+                      style: BorderStyle.solid,
+                    ),
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                      image: AssetImage("assets/images/first-img.jpg"),
+                    ),
+                  ),
+                ),
+                Icon(Icons.edit, size: 22.r, color: AppTheme.black),
+              ],
+            ),
+          ),
+          SizedBox(height: 16.h),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text(
+                "Keroles Hany",
+                style: textTheme.titleMedium!.copyWith(
+                  fontSize: 25.sp,
+                  fontWeight: FontWeight.bold,
+                  color: AppTheme.black,
+                ),
+              ),
+              IconButton(onPressed: () {}, icon: Icon(Icons.edit)),
+            ],
           ),
           SizedBox(height: 20.h),
           SettingItem(

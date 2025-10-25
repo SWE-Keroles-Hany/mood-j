@@ -129,11 +129,13 @@ class _AddMoodScreenState extends State<AddMoodScreen> {
                   } else if (state is SuccessAddMoodState) {
                     UiUtils.hideLoading(context);
                     UiUtils.showMessage(context, "Your Mood Added", true);
-                    Navigator.pop(context);
-                    BlocProvider.of<MoodsCubit>(context).getMoodToday();
-                    BlocProvider.of<MoodsCubit>(context).getAllMoods();
-                    BlocProvider.of<MoodsCubit>(context).getMostFrequentMood();
-                    BlocProvider.of<MoodsCubit>(context).getWritingStreak();
+                    Navigator.of(
+                      context,
+                    ).pushReplacementNamed(HomeScreen.routeName);
+                    getIt<MoodsCubit>().getMoodToday();
+                    getIt<MoodsCubit>().getAllMoods();
+                    getIt<MoodsCubit>().getMostFrequentMood();
+                    getIt<MoodsCubit>().getWritingStreak();
                   }
                 },
                 child: ElvatedButton(onPressed: addMood, title: "Save"),
@@ -143,6 +145,12 @@ class _AddMoodScreenState extends State<AddMoodScreen> {
           ),
         ),
         appBar: AppBar(
+          leading: GestureDetector(
+            onTap: () => Navigator.of(
+              context,
+            ).pushReplacementNamed(HomeScreen.routeName),
+            child: Icon(Icons.arrow_back),
+          ),
           title: Text(
             "Add Mood",
             style: textTheme.titleLarge!.copyWith(fontSize: 26.sp),

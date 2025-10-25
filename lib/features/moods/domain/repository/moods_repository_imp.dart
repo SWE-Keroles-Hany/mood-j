@@ -49,12 +49,9 @@ class MoodsRepositoryImp implements MoodsRepository {
   }
 
   @override
-  Future<Either<Failure, MoodEntity>> getMostFrequentMood() async {
+  Future<Either<Failure, MoodEntity?>> getMostFrequentMood() async {
     try {
-      // تأكد إن فيه بيانات
-      if (allMoodsModel.isEmpty) {
-        return Left(Failure("No moods found"));
-      }
+      if (allMoodsModel.isEmpty) return Right(null);
 
       // نحسب عدد تكرار كل إيموجي
       final Map<String, int> moodCounts = {};

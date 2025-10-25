@@ -9,5 +9,5 @@ abstract class MoodsRepository {
   Future<Either<Failure, List<MoodEntity>>> getAllMoods();
   Future<Either<Failure, int>> getWritingStreak();
   Future<Either<Failure, MoodEntity?>> getMoodToday();
-  Future<Either<Failure, MoodEntity>> getMostFrequentMood();
+  Future<Either<Failure, MoodEntity?>> getMostFrequentMood();
 }

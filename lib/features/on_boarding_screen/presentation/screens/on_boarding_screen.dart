@@ -65,7 +65,6 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                 onPressed: () {
                   startBottomSheet(
                     context: context,
-                    controller: notificationController,
                     dailyReminder: dailyReminder,
                     globalKey: _globalKey,
                     nameController: nameController,
