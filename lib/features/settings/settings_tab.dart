@@ -29,6 +29,7 @@ class _SettingsTabState extends State<SettingsTab> {
   String reminder = "Off";
   String language = 'en';
 
+  ImageProvider? imageProvider;
   @override
   void initState() {
     super.initState();
@@ -105,10 +106,9 @@ class _SettingsTabState extends State<SettingsTab> {
                               children: [
                                 CircleAvatar(
                                   radius: 70.r,
-                                  // backgroundColor: AppTheme.blue,
-                                  backgroundImage: FileImage(
-                                    File(userCubit.user!.imgPath),
-                                  ),
+                                  backgroundImage:
+                                      FileImage(File(userCubit.user!.imgPath))
+                                          as ImageProvider,
                                 ),
                                 Container(
                                   decoration: BoxDecoration(

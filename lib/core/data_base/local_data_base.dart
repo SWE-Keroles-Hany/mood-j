@@ -5,7 +5,6 @@ import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
 class LocalDatabase {
-  //! ========================= SETUP =========================
   static Database? _dataBase;
 
   Future<Database?> get db async {
