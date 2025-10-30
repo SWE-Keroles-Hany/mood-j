@@ -8,6 +8,7 @@ import 'package:moodly_j/core/ui/ui_uitils.dart';
 import 'package:moodly_j/features/moods/presentation/cubit/moods_cubti.dart';
 import 'package:moodly_j/features/moods/presentation/cubit/moods_states.dart';
 import 'package:moodly_j/features/moods/presentation/widgets/journal_item.dart';
+import 'package:moodly_j/l10n/app_localizations.dart';
 
 class JournalistTab extends StatefulWidget {
   const JournalistTab({super.key});
@@ -29,6 +30,7 @@ class _JournalistTabState extends State<JournalistTab> {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final localization = AppLocalizations.of(context)!;
 
     return Padding(
       padding: EdgeInsets.all(20.r),
@@ -37,7 +39,7 @@ class _JournalistTabState extends State<JournalistTab> {
         children: [
           /// Title
           Text(
-            "Your Journal Moods",
+            localization.yourJournalMoods,
             textAlign: TextAlign.center,
             style: textTheme.titleMedium?.copyWith(
               color: AppTheme.black,
@@ -70,7 +72,6 @@ class _JournalistTabState extends State<JournalistTab> {
                     );
                   }
 
-                  /// حالة الخطأ عند الجلب
                   if (state is ErrorGetAllMoodsState) {
                     return Center(
                       child: Text(
@@ -99,7 +100,7 @@ class _JournalistTabState extends State<JournalistTab> {
                             ),
                             SizedBox(height: 10.h),
                             Text(
-                              "Empty Journal",
+                              localization.emptyJournal,
                               style: textTheme.titleMedium?.copyWith(
                                 fontWeight: FontWeight.w500,
                                 fontSize: 25.sp,

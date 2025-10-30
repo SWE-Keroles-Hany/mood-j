@@ -4,6 +4,7 @@ import 'package:moodly_j/core/theme/app_theme.dart';
 // import 'package:moodly_j/features/home/presentation/home_screen.dart';
 // import 'package:moodly_j/features/moods/presentation/widgets/elvated_button.dart';
 import 'package:moodly_j/features/on_boarding_screen/presentation/widgets/start_bottom_sheet.dart';
+import 'package:moodly_j/l10n/app_localizations.dart';
 // import 'package:moodly_j/features/settings/widgets/notification_setting.dart';
 // import 'package:moodly_j/features/settings/widgets/settign_item_lable.dart';
 // import '../widgets/custom_input_field.dart';
@@ -26,6 +27,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
+
     final textStyle = Theme.of(context).textTheme;
     return SafeArea(
       child: Scaffold(
@@ -36,7 +39,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
           child: Column(
             children: [
               SizedBox(height: 30.h),
-              Text("Welcome to MoodJ", style: textStyle.titleLarge),
+              Text(localization.welcomeToMoodJ, style: textStyle.titleLarge),
               SizedBox(height: 30.h),
               ClipRRect(
                 borderRadius: BorderRadiusGeometry.circular(16.r),
@@ -46,7 +49,8 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
               Text(
                 textAlign: TextAlign.center,
                 style: textStyle.titleMedium,
-                "Track your moods, reflect on your day, and see your journey over time.",
+                localization
+                    .trackYourMoodsReflectOnYourDayAndSeeYourJourneyOverTime,
               ),
               Spacer(),
               ElevatedButton(
@@ -72,7 +76,7 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
                   );
                 },
                 child: Text(
-                  "Get Started",
+                  localization.getStarted,
                   style: textStyle.titleMedium!.copyWith(
                     fontWeight: FontWeight.bold,
                     color: AppTheme.white,

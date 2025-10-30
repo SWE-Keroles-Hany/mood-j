@@ -7,6 +7,7 @@ import 'package:moodly_j/features/moods/presentation/cubit/moods_cubti.dart';
 import 'package:moodly_j/features/moods/presentation/widgets/journalist_tab.dart';
 import 'package:moodly_j/features/on_boarding_screen/presentation/cubit/user_cubit.dart';
 import 'package:moodly_j/features/settings/settings_tab.dart';
+import 'package:moodly_j/l10n/app_localizations.dart';
 
 class HomeScreen extends StatefulWidget {
   static const String routeName = "HomeScreen";
@@ -36,6 +37,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
+
     return SafeArea(
       child: Scaffold(
         body: tabs[selectedIndex],
@@ -66,13 +69,16 @@ class _HomeScreenState extends State<HomeScreen> {
               setState(() {});
             },
             items: [
-              BottomNavigationBarItem(label: "Home", icon: Icon(Icons.home)),
               BottomNavigationBarItem(
-                label: "My Journal",
+                label: localization.home,
+                icon: Icon(Icons.home),
+              ),
+              BottomNavigationBarItem(
+                label: localization.myJournal,
                 icon: Icon(Icons.menu_book_rounded),
               ),
               BottomNavigationBarItem(
-                label: "Profile",
+                label: localization.profile,
                 icon: Icon(Icons.person),
               ),
             ],

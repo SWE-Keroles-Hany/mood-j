@@ -6,12 +6,12 @@ import 'package:moodly_j/features/on_boarding_screen/domain/enitities/user_entit
 abstract class UserRepo {
   //! create user
   Future<Either<Failure, void>> createUser({required UserModel userModel});
-  //! update user
-  Future<Either<Failure, void>> updateUser({
-    required Map<String, dynamic> fields,
-  });
-  //! get User
+
   Future<Either<Failure, UserEntity?>> getUser();
   //! is User Created ..?
   Future<Either<Failure, void>> isUserCreated();
+  Future<Either<Failure, void>> changeUserName({required String name});
+  Future<Either<Failure, void>> changeLanguage({required String language});
+
+  Future<Either<Failure, void>> changeImage({required String imgPath});
 }

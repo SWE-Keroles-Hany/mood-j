@@ -19,6 +19,7 @@ import 'package:moodly_j/features/moods/presentation/widgets/feature_lable.dart'
 import 'package:moodly_j/features/moods/presentation/widgets/feeling_input_field.dart';
 import 'package:moodly_j/features/moods/presentation/widgets/pro_item.dart';
 import 'package:moodly_j/features/moods/presentation/widgets/voice_recorder.dart';
+import 'package:moodly_j/l10n/app_localizations.dart';
 
 class AddMoodScreen extends StatefulWidget {
   static const String routeName = "AddMoodScreen";
@@ -44,6 +45,8 @@ class _AddMoodScreenState extends State<AddMoodScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
+
     final textTheme = Theme.of(context).textTheme;
     return SafeArea(
       child: Scaffold(
@@ -56,7 +59,7 @@ class _AddMoodScreenState extends State<AddMoodScreen> {
               //! Input Field
               FeelingInputField(controller: descriptionController),
               SizedBox(height: 10.h),
-              FeatureLable(lable: "How's Your Mood"),
+              FeatureLable(lable: localization.howsYourMood),
               //! Emojiis
               SizedBox(
                 height: 45.h,
@@ -82,7 +85,7 @@ class _AddMoodScreenState extends State<AddMoodScreen> {
                 ),
               ),
               SizedBox(height: 20.h),
-              FeatureLable(lable: "Attachments"),
+              FeatureLable(lable: localization.attachments),
               SizedBox(height: 8.h),
               //! Add Photo
               GestureDetector(
@@ -100,7 +103,7 @@ class _AddMoodScreenState extends State<AddMoodScreen> {
                 child: ProItem(
                   done: recorededFile != null,
                   icon: Icons.mic,
-                  title: "Record Voice",
+                  title: localization.recordVoice,
                 ),
               ),
               recorededFile != null
@@ -111,7 +114,7 @@ class _AddMoodScreenState extends State<AddMoodScreen> {
                             showRecordedVoice(context);
                           },
                           child: Text(
-                            "Listen Your Records",
+                            localization.listenYourRecords,
                             style: textTheme.titleMedium!.copyWith(
                               fontWeight: FontWeight.bold,
                               fontSize: 18.sp,
@@ -133,7 +136,11 @@ class _AddMoodScreenState extends State<AddMoodScreen> {
                     UiUtils.showMessage(context, state.message, false);
                   } else if (state is SuccessAddMoodState) {
                     UiUtils.hideLoading(context);
-                    UiUtils.showMessage(context, "Your Mood Added", true);
+                    UiUtils.showMessage(
+                      context,
+                      localization.yourMoodAdded,
+                      true,
+                    );
                     Navigator.of(
                       context,
                     ).pushReplacementNamed(HomeScreen.routeName);
@@ -143,7 +150,10 @@ class _AddMoodScreenState extends State<AddMoodScreen> {
                     getIt<MoodsCubit>().getWritingStreak();
                   }
                 },
-                child: ElvatedButton(onPressed: addMood, title: "Save"),
+                child: ElvatedButton(
+                  onPressed: addMood,
+                  title: localization.save,
+                ),
               ),
               SizedBox(height: 10.h),
             ],
@@ -157,8 +167,8 @@ class _AddMoodScreenState extends State<AddMoodScreen> {
             child: Icon(Icons.arrow_back),
           ),
           title: Text(
-            "Add Mood",
-            style: textTheme.titleLarge!.copyWith(fontSize: 26.sp),
+            localization.addMood,
+            style: textTheme.titleLarge!.copyWith(fontSize: 24.sp),
           ),
         ),
       ),
@@ -185,7 +195,11 @@ class _AddMoodScreenState extends State<AddMoodScreen> {
 
   Future<void> addMood() async {
     if (descriptionController.text.trim().isEmpty || selectedEmoji == null) {
-      UiUtils.showMessage(context, "Description And Emoji are Requried", false);
+      UiUtils.showMessage(
+        context,
+        AppLocalizations.of(context)!.descriptionAndEmojiRequired,
+        false,
+      );
     } else {
       final moodEntity = MoodEntity(
         description: descriptionController.text,

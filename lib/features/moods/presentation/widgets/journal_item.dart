@@ -11,9 +11,10 @@ class JournalItem extends StatelessWidget {
   JournalItem({super.key, required this.mood, required this.onDelete});
   final MoodEntity mood;
   final Function()? onDelete;
-  DateFormat dateFormat = DateFormat.yMMMMd('en_US');
   @override
   Widget build(BuildContext context) {
+    Locale locale = Localizations.localeOf(context);
+    DateFormat dateFormat = DateFormat.yMMMMd(locale.toString());
     final textTheme = Theme.of(context).textTheme;
     return GestureDetector(
       onTap: () async {
@@ -40,7 +41,7 @@ class JournalItem extends StatelessWidget {
           children: [
             Expanded(
               child: Text(
-                getEmoji(mood.emoji).$1.toString(),
+                getEmoji(mood.emoji, context).$1.toString(),
                 style: TextStyle(fontSize: 40.sp),
               ),
             ),

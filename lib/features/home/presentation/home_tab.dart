@@ -12,6 +12,8 @@ import 'package:moodly_j/features/home/widgets/custom_button.dart';
 import 'package:moodly_j/features/home/widgets/custom_item.dart';
 import 'package:moodly_j/features/on_boarding_screen/presentation/cubit/user_cubit.dart';
 import 'package:moodly_j/features/on_boarding_screen/presentation/cubit/user_states.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:moodly_j/l10n/app_localizations.dart';
 
 // ignore: must_be_immutable
 class HomeTab extends StatefulWidget {
@@ -37,6 +39,7 @@ class _HomeTabState extends State<HomeTab> {
 
   @override
   Widget build(BuildContext context) {
+    final localization = AppLocalizations.of(context)!;
     // get a emoji by its name
     final textTheme = Theme.of(context).textTheme;
     return SingleChildScrollView(
@@ -47,7 +50,7 @@ class _HomeTabState extends State<HomeTab> {
           children: [
             SizedBox(height: 12.h),
             Text(
-              "Your Mood Journey",
+              localization.yourJournalMoods,
               style: textTheme.titleLarge!.copyWith(fontSize: 22.sp),
             ),
             SizedBox(height: 12.h),
@@ -60,7 +63,7 @@ class _HomeTabState extends State<HomeTab> {
                 print("user state $state");
                 if (state is SuccessGetUserState) {
                   return Text(
-                    "Hello,${state.user.name}",
+                    "${localization.hello}${state.user!.name}",
                     style: textTheme.titleMedium,
                   );
                 }
@@ -76,7 +79,7 @@ class _HomeTabState extends State<HomeTab> {
               ),
               selectedTileColor: AppTheme.creamYellow,
               title: Text(
-                "Don't Forget To Write Today!",
+                localization.dontForgetToWriteToday,
                 style: textTheme.titleMedium!.copyWith(
                   fontSize: 16.sp,
                   fontWeight: FontWeight.bold,
@@ -110,7 +113,7 @@ class _HomeTabState extends State<HomeTab> {
                           bgColor: AppTheme.lavender,
                           color: AppTheme.deepPurple,
                           result: "${state.allMoods.length}",
-                          title: "Total Entries",
+                          title: localization.totalEntries,
                         );
                       } else if (state is ErrorGetAllMoodsState) {
                         return const Center(child: Text("Error"));
@@ -130,11 +133,11 @@ class _HomeTabState extends State<HomeTab> {
                       } else if (state is MostFrequentMoodLoaded) {
                         return CustomItem(
                           fixedIcon: false,
-                          emoji: getEmoji(state.mood?.emoji).$1,
+                          emoji: getEmoji(state.mood?.emoji, context).$1,
                           bgColor: AppTheme.creamYellow,
                           color: AppTheme.darkBrown,
-                          result: getEmoji(state.mood?.emoji).$2,
-                          title: "Most Frequent",
+                          result: getEmoji(state.mood?.emoji, context).$2,
+                          title: localization.mostFrequent,
                         );
                       } else if (state is MostFrequentMoodError) {
                         return Center(child: const Text("???"));
@@ -155,8 +158,8 @@ class _HomeTabState extends State<HomeTab> {
                           icon: "assets/icons/fire.png",
                           bgColor: AppTheme.lightPink,
                           color: AppTheme.deepRose,
-                          result: "${state.streak} Days",
-                          title: "Writing Streak",
+                          result: "${state.streak} ${localization.days}",
+                          title: localization.writingStreak,
                         );
                       } else if (state is WritingStreakError) {
                         return const Text("Error");
@@ -175,11 +178,11 @@ class _HomeTabState extends State<HomeTab> {
                       } else if (statee is MoodTodayLoaded) {
                         return CustomItem(
                           fixedIcon: false,
-                          emoji: getEmoji(statee.mood?.emoji).$1,
+                          emoji: getEmoji(statee.mood?.emoji, context).$1,
                           bgColor: AppTheme.mintGreen,
                           color: AppTheme.forestGreen,
-                          result: getEmoji(statee.mood?.emoji).$2,
-                          title: "Today's Mood",
+                          result: getEmoji(statee.mood?.emoji, context).$2,
+                          title: localization.todayMood,
                         );
                       } else if (statee is MoodTodayError) {
                         return const Text("Error");
@@ -200,7 +203,7 @@ class _HomeTabState extends State<HomeTab> {
                   context,
                 ).pushReplacementNamed(AddMoodScreen.routeName);
               },
-              title: "Add Mood",
+              title: localization.addMood,
             ),
           ],
         ),

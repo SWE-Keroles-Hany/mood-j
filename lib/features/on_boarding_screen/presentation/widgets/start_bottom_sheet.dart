@@ -9,6 +9,7 @@ import 'package:moodly_j/features/on_boarding_screen/domain/enitities/user_entit
 import 'package:moodly_j/features/on_boarding_screen/presentation/cubit/user_cubit.dart';
 import 'package:moodly_j/features/on_boarding_screen/presentation/cubit/user_states.dart';
 import 'package:moodly_j/features/on_boarding_screen/presentation/widgets/custom_input_field.dart';
+import 'package:moodly_j/l10n/app_localizations.dart';
 
 Future<dynamic> startBottomSheet({
   required BuildContext context,
@@ -43,7 +44,9 @@ Future<dynamic> startBottomSheet({
                       if (input == null ||
                           input.trim().isEmpty ||
                           input.length < 3) {
-                        return "Name Can't be less than 3 characters";
+                        return AppLocalizations.of(
+                          context,
+                        )!.nameCantBeLessThan3Characters;
                       }
                       return null;
                     },
@@ -57,16 +60,15 @@ Future<dynamic> startBottomSheet({
                         return Center(child: CircularProgressIndicator());
                       }
                       return ElvatedButton(
-                        title: "Go",
+                        title: AppLocalizations.of(context)!.go,
                         onPressed: () async {
                           if (globalKey.currentState!.validate()) {
                             await BlocProvider.of<UserCubit>(
                               context,
                             ).createUser(
                               userEntity: UserEntity(
+                                imgPath: "assets/icons/person.png",
                                 language: 'en',
-                                theme: 'light',
-                                notificationTime: DateTime.now(),
                                 name: nameController.text,
                               ),
                             );

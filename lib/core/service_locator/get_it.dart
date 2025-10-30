@@ -14,10 +14,12 @@ import 'package:moodly_j/features/on_boarding_screen/data/data_sources/sql_user_
 import 'package:moodly_j/features/on_boarding_screen/data/data_sources/user_data_source.dart';
 import 'package:moodly_j/features/on_boarding_screen/data/repository/user_repo.dart';
 import 'package:moodly_j/features/on_boarding_screen/domain/repository/user_repo_imp.dart';
+import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/change_image.dart';
+import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/change_language.dart';
+import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/change_user_name.dart';
 import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/create_user.dart';
 import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/get_user.dart';
 import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/is_user_created.dart';
-import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/update_user.dart';
 import 'package:moodly_j/features/on_boarding_screen/presentation/cubit/user_cubit.dart';
 
 import '../../features/moods/domain/use_cases/delete_mood.dart';
@@ -42,13 +44,15 @@ void setup() {
 
   //! User
   getIt.registerSingleton<UserDataSource>(SqlUserDataSource(getIt()));
-  getIt.registerSingleton<UserRepo>(UserRepoImp(getIt(), getIt()));
+  getIt.registerSingleton<UserRepo>(UserRepoImp(getIt()));
   getIt.registerSingleton<CreateUser>(CreateUser(getIt()));
-  getIt.registerSingleton<UpdateUser>(UpdateUser(getIt()));
   getIt.registerSingleton<GetUser>(GetUser(getIt()));
   getIt.registerSingleton<IsUserCreated>(IsUserCreated(getIt()));
+  getIt.registerSingleton<ChangeImage>(ChangeImage(getIt()));
+  getIt.registerSingleton<ChangeLanguage>(ChangeLanguage(getIt()));
+  getIt.registerSingleton<ChangeUserName>(ChangeUserName(getIt()));
 
   getIt.registerSingleton<UserCubit>(
-    UserCubit(getIt(), getIt(), getIt(), getIt()),
+    UserCubit(getIt(), getIt(), getIt(), getIt(), getIt(), getIt()),
   );
 }

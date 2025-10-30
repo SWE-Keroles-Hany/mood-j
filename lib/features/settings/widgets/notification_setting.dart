@@ -29,11 +29,18 @@ class _NotificationSettingState extends State<NotificationSetting> {
     return Column(
       children: [
         Container(
+          padding: EdgeInsets.symmetric(horizontal: 14.r, vertical: 18.r),
           decoration: BoxDecoration(
-            color: const Color.fromARGB(255, 245, 231, 238),
-            borderRadius: BorderRadius.circular(18.r),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20.r),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black12,
+                blurRadius: 8,
+                offset: const Offset(0, 3),
+              ),
+            ],
           ),
-          padding: EdgeInsets.symmetric(horizontal: 12.r, vertical: 14.r),
           child: Column(
             children: [
               Row(
@@ -52,8 +59,8 @@ class _NotificationSettingState extends State<NotificationSetting> {
                     controller: widget.controller,
                     activeColor: AppTheme.blue,
                     borderRadius: BorderRadius.all(Radius.circular(16.r)),
-                    width: 55.w,
-                    height: 20.h,
+                    width: 63.w,
+                    height: 22.h,
                     enabled: true,
                     disabledOpacity: 0.5.r,
                   ),

@@ -14,15 +14,35 @@ class ErrorCreateUserState implements UserStates {
 
 class SuccessCreateUserState implements UserStates {}
 
-//! Update User State
-class LoadingUpdateUserState implements UserStates {}
+//! Change Img States
+class LoadingChangeImageState implements UserStates {}
 
-class ErrorUpdateUserState implements UserStates {
+class ErrorChangeImageState implements UserStates {
   final String message;
-  ErrorUpdateUserState(this.message);
+  ErrorChangeImageState(this.message);
 }
 
-class SuccessUpdateUserState implements UserStates {}
+class SuccessChangeImageState implements UserStates {}
+
+//! Change Lang States
+class LoadingChangeLanguageState implements UserStates {}
+
+class ErrorChangeLanguageState implements UserStates {
+  final String message;
+  ErrorChangeLanguageState(this.message);
+}
+
+class SuccessChangeLanguageState implements UserStates {}
+
+//! Change Name States
+class LoadingChangeNameState implements UserStates {}
+
+class ErrorChangeNameState implements UserStates {
+  final String message;
+  ErrorChangeNameState(this.message);
+}
+
+class SuccessChangeNameState implements UserStates {}
 
 //! Get User State
 class LoadingGetUserState implements UserStates {}
@@ -33,7 +53,7 @@ class ErrorGetUserState implements UserStates {
 }
 
 class SuccessGetUserState implements UserStates {
-  final UserEntity user;
+  final UserEntity? user;
   SuccessGetUserState(this.user);
 }
 

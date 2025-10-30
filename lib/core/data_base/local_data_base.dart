@@ -42,10 +42,8 @@ class LocalDatabase {
     batch.execute('''
       CREATE TABLE user (
         name TEXT NOT NULL,
-        imgPath TEXT,
-        language TEXT NOT NULL DEFAULT 'en',
-        theme TEXT NOT NULL DEFAULT 'light',
-        notificationTime TEXT NOT NULL DEFAULT '20:00'
+        language TEXT NOT NULL,
+        imgPath TEXT NOT NULL
       );
     ''');
 
@@ -72,15 +70,14 @@ class LocalDatabase {
 
     String sql = '''
       INSERT INTO user (
-        name, language, theme, notificationTime
-      ) VALUES (?,?,?,?)
+        name, language, imgPath
+      ) VALUES (?,?,?)
     ''';
 
     int response = await mydb!.rawInsert(sql, [
       userModel.name,
       userModel.language,
-      userModel.theme,
-      userModel.notificationTime?.toIso8601String() ?? '20:00',
+      userModel.imgPath,
     ]);
 
     return response;

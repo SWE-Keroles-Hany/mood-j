@@ -1,15 +1,11 @@
 class UserEntity {
   String name;
-  DateTime? notificationTime;
-  String? language;
-  String? theme;
-  String? imgUrl;
+  String language;
+  String imgPath;
 
   UserEntity({
     required this.name,
-    this.language = 'en',
-    this.notificationTime,
-    this.theme = 'light',
-    this.imgUrl,
+    required this.language,
+    required this.imgPath,
   });
 }

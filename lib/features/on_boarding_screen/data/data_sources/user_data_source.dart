@@ -4,7 +4,9 @@ abstract class UserDataSource {
   //! create
   Future<void> createUser({required UserModel userModel});
   //!  update
-  Future<void> updateUser({required Map<String, dynamic> fields});
+  Future<void> changeUserName({required String name});
+  Future<void> changeImage({required String imgPath});
+  Future<void> changeLanguage({required String language});
   //! getUser
   Future<UserModel?> getUser();
   //!  isUserCreated

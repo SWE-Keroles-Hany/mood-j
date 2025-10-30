@@ -59,7 +59,7 @@ class _JournalDetailsScreenState extends State<JournalDetailsScreen> {
             children: [
               Text(
                 textAlign: TextAlign.center,
-                getEmoji(mood!.emoji).$1.toString(),
+                getEmoji(mood!.emoji, context).$1.toString(),
                 style: TextStyle(fontSize: 60.sp),
               ),
               Text(
