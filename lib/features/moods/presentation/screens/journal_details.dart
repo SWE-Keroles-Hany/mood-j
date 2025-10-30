@@ -36,6 +36,8 @@ class _JournalDetailsScreenState extends State<JournalDetailsScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Locale locale = Localizations.localeOf(context);
+    DateFormat dateFormat = DateFormat.yMMMMd(locale.toString());
     final textTheme = Theme.of(context).textTheme;
     return Scaffold(
       backgroundColor: Color(0xffE7E7F1),
