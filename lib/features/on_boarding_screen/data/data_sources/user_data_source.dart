@@ -11,4 +11,5 @@ abstract class UserDataSource {
   Future<UserModel?> getUser();
   //!  isUserCreated
   Future<void> isUserCreated();
+  Future<void> logOut();
 }

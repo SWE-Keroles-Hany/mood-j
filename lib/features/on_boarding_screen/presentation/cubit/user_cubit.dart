@@ -6,6 +6,7 @@ import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/change_use
 import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/create_user.dart';
 import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/get_user.dart';
 import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/is_user_created.dart';
+import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/log_out.dart';
 import 'package:moodly_j/features/on_boarding_screen/presentation/cubit/user_states.dart';
 
 class UserCubit extends Cubit<UserStates> {
@@ -15,9 +16,12 @@ class UserCubit extends Cubit<UserStates> {
   final ChangeImage _changeImage;
   final ChangeLanguage _changeLanguage;
   final ChangeUserName _changeUserName;
+  final LogOut _logOut;
+
   UserEntity? user;
 
   UserCubit(
+    this._logOut,
     this._createUser,
     this._isUserCreated,
     this._getUser,
@@ -35,6 +39,19 @@ class UserCubit extends Cubit<UserStates> {
       },
       (_) {
         emit(SuccessCreateUserState());
+      },
+    );
+  }
+
+  Future<void> logOut() async {
+    emit(LoadingLogOutState());
+    final result = await _logOut.logOut();
+    result.fold(
+      (failure) {
+        emit(ErrorLogOutState(failure.message));
+      },
+      (_) {
+        emit(SuccessLogOutState());
       },
     );
   }

@@ -66,7 +66,7 @@ class _MoodJAppState extends State<MoodJApp> {
           Locale('en'), // Spanish
         ],
         debugShowCheckedModeBanner: false,
-        initialRoute: OnBoardingScreen.routeName,
+        initialRoute: InitScreen.routeName,
         routes: AppRoutes.routes,
         theme: AppTheme.lightTheme,
       ),

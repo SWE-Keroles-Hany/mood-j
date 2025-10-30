@@ -66,3 +66,13 @@ class ErrorIsUserCreatedState implements UserStates {
 }
 
 class SuccessIsUserCreatedStateState implements UserStates {}
+
+//! Log-out State
+class LoadingLogOutState implements UserStates {}
+
+class ErrorLogOutState implements UserStates {
+  final String message;
+  ErrorLogOutState(this.message);
+}
+
+class SuccessLogOutState implements UserStates {}

@@ -77,4 +77,14 @@ class UserRepoImp implements UserRepo {
       return Left(Failure("Some Thing Went Wrong, try again!"));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> logOut() async {
+    try {
+      await _userDataSource.logOut();
+      return Right(null);
+    } catch (_) {
+      return Left(Failure("Some Thing Went Wrong, try again!"));
+    }
+  }
 }

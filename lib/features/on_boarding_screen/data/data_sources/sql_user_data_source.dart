@@ -76,4 +76,13 @@ class SqlUserDataSource implements UserDataSource {
       throw AppException("Some Thing Went Wrong, try again");
     }
   }
+
+  @override
+  Future<void> logOut() async {
+    try {
+      await localDatabase.clearAllData();
+    } catch (error) {
+      throw AppException("Some Thing Went Wrong, try again");
+    }
+  }
 }

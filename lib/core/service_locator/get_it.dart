@@ -20,6 +20,7 @@ import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/change_use
 import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/create_user.dart';
 import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/get_user.dart';
 import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/is_user_created.dart';
+import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/log_out.dart';
 import 'package:moodly_j/features/on_boarding_screen/presentation/cubit/user_cubit.dart';
 
 import '../../features/moods/domain/use_cases/delete_mood.dart';
@@ -51,8 +52,9 @@ void setup() {
   getIt.registerSingleton<ChangeImage>(ChangeImage(getIt()));
   getIt.registerSingleton<ChangeLanguage>(ChangeLanguage(getIt()));
   getIt.registerSingleton<ChangeUserName>(ChangeUserName(getIt()));
+  getIt.registerSingleton<LogOut>(LogOut(getIt()));
 
   getIt.registerSingleton<UserCubit>(
-    UserCubit(getIt(), getIt(), getIt(), getIt(), getIt(), getIt()),
+    UserCubit(getIt(), getIt(), getIt(), getIt(), getIt(), getIt(), getIt()),
   );
 }

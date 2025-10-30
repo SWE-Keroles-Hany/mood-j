@@ -14,4 +14,5 @@ abstract class UserRepo {
   Future<Either<Failure, void>> changeLanguage({required String language});
 
   Future<Either<Failure, void>> changeImage({required String imgPath});
+  Future<Either<Failure, void>> logOut();
 }

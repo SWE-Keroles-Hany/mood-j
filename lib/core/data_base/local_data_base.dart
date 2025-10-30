@@ -62,6 +62,12 @@ class LocalDatabase {
     await batch.commit(noResult: true);
   }
 
+  Future<void> clearAllData() async {
+    final mydb = await db;
+    await mydb!.delete('user');
+    await mydb.delete('moods');
+    print("✅ All local data cleared successfully");
+  }
   //! ========================= USER SECTION =========================
 
   /// Create user (single-row table)
