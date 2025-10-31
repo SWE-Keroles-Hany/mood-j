@@ -4,6 +4,7 @@ import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/change_ima
 import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/change_language.dart';
 import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/change_user_name.dart';
 import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/create_user.dart';
+import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/enable_notification.dart';
 import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/get_user.dart';
 import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/is_user_created.dart';
 import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/log_out.dart';
@@ -16,11 +17,14 @@ class UserCubit extends Cubit<UserStates> {
   final ChangeImage _changeImage;
   final ChangeLanguage _changeLanguage;
   final ChangeUserName _changeUserName;
+  final EnableNotification _enableNotification;
+
   final LogOut _logOut;
 
   UserEntity? user;
 
   UserCubit(
+    this._enableNotification,
     this._logOut,
     this._createUser,
     this._isUserCreated,
@@ -39,6 +43,21 @@ class UserCubit extends Cubit<UserStates> {
       },
       (_) {
         emit(SuccessCreateUserState());
+      },
+    );
+  }
+
+  Future<void> enableNotification({required bool enableNotification}) async {
+    emit(LoadingEnableNotificatoinState());
+    final result = await _enableNotification.enbaleNotification(
+      enbleNotification: enableNotification,
+    );
+    result.fold(
+      (failure) {
+        emit(ErrorEnableNotificatoinState(failure.message));
+      },
+      (_) {
+        emit(SuccessEnableNotificatoinState());
       },
     );
   }
@@ -64,7 +83,6 @@ class UserCubit extends Cubit<UserStates> {
         emit(ErrorGetUserState(failure.message));
       },
       (result) {
-        print(result!.imgPath);
         user = result;
         emit(SuccessGetUserState(result));
       },

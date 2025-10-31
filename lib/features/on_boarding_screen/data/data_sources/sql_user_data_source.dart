@@ -4,7 +4,6 @@ import 'package:moodly_j/core/data_base/local_data_base.dart';
 import 'package:moodly_j/core/failure/app_exception.dart';
 import 'package:moodly_j/features/on_boarding_screen/data/models/user_model.dart';
 import 'package:moodly_j/features/on_boarding_screen/data/data_sources/user_data_source.dart';
-import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/change_language.dart';
 
 class SqlUserDataSource implements UserDataSource {
   final LocalDatabase localDatabase;
@@ -81,6 +80,17 @@ class SqlUserDataSource implements UserDataSource {
   Future<void> logOut() async {
     try {
       await localDatabase.clearAllData();
+    } catch (error) {
+      throw AppException("Some Thing Went Wrong, try again");
+    }
+  }
+
+  @override
+  Future<void> enableNotification({required bool enableNotification}) async {
+    try {
+      await localDatabase.updateUser({
+        "enableNotification": enableNotification,
+      });
     } catch (error) {
       throw AppException("Some Thing Went Wrong, try again");
     }

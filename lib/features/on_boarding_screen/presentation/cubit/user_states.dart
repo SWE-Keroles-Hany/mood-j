@@ -76,3 +76,13 @@ class ErrorLogOutState implements UserStates {
 }
 
 class SuccessLogOutState implements UserStates {}
+
+//! Enable Notificatoin State
+class LoadingEnableNotificatoinState implements UserStates {}
+
+class ErrorEnableNotificatoinState implements UserStates {
+  final String message;
+  ErrorEnableNotificatoinState(this.message);
+}
+
+class SuccessEnableNotificatoinState implements UserStates {}

@@ -81,6 +81,9 @@ class AppLocalizationsAr extends AppLocalizations {
   String get go => 'ابدأ';
 
   @override
+  String get reminder => 'تذكير';
+
+  @override
   String get logOut => 'تسجيل الخروج';
 
   @override

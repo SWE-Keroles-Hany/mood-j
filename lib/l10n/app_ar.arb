@@ -40,6 +40,7 @@
     "enterYourName": "أدخل اسمك من فضلك",
     "getStarted": "ابدأ رحلتك الآن",
     "days": "ايام",
+    "reminder": "تذكير",
     "nameCantBeLessThan3Characters": "يجب ألا يقل الاسم عن 3 أحرف",
     "trackYourMoodsReflectOnYourDayAndSeeYourJourneyOverTime": "تتبع مزاجك، وتأمل يومك، واكتشف رحلتك مع مرور الوقت"
 }

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moodly_j/core/bloc_observer.dart';
 import 'package:moodly_j/core/routes/app_routes.dart';
+import 'package:moodly_j/core/service/local_notifications.dart';
 import 'package:moodly_j/core/service_locator/get_it.dart';
 import 'package:moodly_j/core/theme/app_theme.dart';
 import 'package:moodly_j/features/moods/presentation/cubit/moods_cubti.dart';
@@ -11,10 +12,12 @@ import 'package:moodly_j/features/on_boarding_screen/presentation/init_screen.da
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:moodly_j/l10n/app_localizations.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await LocalNotifications.init();
+
   Bloc.observer = MyBlocObserver();
   setup();
-
   runApp(
     MultiBlocProvider(
       providers: [

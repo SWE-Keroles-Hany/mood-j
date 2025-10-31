@@ -87,4 +87,18 @@ class UserRepoImp implements UserRepo {
       return Left(Failure("Some Thing Went Wrong, try again!"));
     }
   }
+
+  @override
+  Future<Either<Failure, void>> enbaleNotification({
+    required bool enbleNotification,
+  }) async {
+    try {
+      await _userDataSource.enableNotification(
+        enableNotification: enbleNotification,
+      );
+      return Right(null);
+    } catch (_) {
+      return Left(Failure("Some Thing Went Wrong, try again!"));
+    }
+  }
 }

@@ -42,7 +42,8 @@ class LocalDatabase {
       CREATE TABLE user (
         name TEXT NOT NULL,
         language TEXT NOT NULL,
-        imgPath TEXT NOT NULL
+        imgPath TEXT NOT NULL,
+        enableNotification BOOLEAN NOT NULL
       );
     ''');
 
@@ -75,14 +76,15 @@ class LocalDatabase {
 
     String sql = '''
       INSERT INTO user (
-        name, language, imgPath
-      ) VALUES (?,?,?)
+        name, language, imgPath, enableNotification
+      ) VALUES (?,?,?,?)
     ''';
 
     int response = await mydb!.rawInsert(sql, [
       userModel.name,
       userModel.language,
       userModel.imgPath,
+      userModel.enableNotification,
     ]);
 
     return response;

@@ -81,6 +81,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String get go => 'Go';
 
   @override
+  String get reminder => 'Reminder';
+
+  @override
   String get logOut => 'Log Out';
 
   @override

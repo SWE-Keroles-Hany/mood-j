@@ -18,6 +18,7 @@ import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/change_ima
 import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/change_language.dart';
 import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/change_user_name.dart';
 import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/create_user.dart';
+import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/enable_notification.dart';
 import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/get_user.dart';
 import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/is_user_created.dart';
 import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/log_out.dart';
@@ -53,8 +54,18 @@ void setup() {
   getIt.registerSingleton<ChangeLanguage>(ChangeLanguage(getIt()));
   getIt.registerSingleton<ChangeUserName>(ChangeUserName(getIt()));
   getIt.registerSingleton<LogOut>(LogOut(getIt()));
+  getIt.registerSingleton<EnableNotification>(EnableNotification(getIt()));
 
   getIt.registerSingleton<UserCubit>(
-    UserCubit(getIt(), getIt(), getIt(), getIt(), getIt(), getIt(), getIt()),
+    UserCubit(
+      getIt(),
+      getIt(),
+      getIt(),
+      getIt(),
+      getIt(),
+      getIt(),
+      getIt(),
+      getIt(),
+    ),
   );
 }

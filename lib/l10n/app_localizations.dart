@@ -242,6 +242,12 @@ abstract class AppLocalizations {
   /// **'Go'**
   String get go;
 
+  /// No description provided for @reminder.
+  ///
+  /// In en, this message translates to:
+  /// **'Reminder'**
+  String get reminder;
+
   /// No description provided for @logOut.
   ///
   /// In en, this message translates to:

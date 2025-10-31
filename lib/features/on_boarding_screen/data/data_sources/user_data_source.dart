@@ -12,4 +12,5 @@ abstract class UserDataSource {
   //!  isUserCreated
   Future<void> isUserCreated();
   Future<void> logOut();
+  Future<void> enableNotification({required bool enableNotification});
 }
