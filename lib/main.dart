@@ -14,7 +14,6 @@ import 'package:moodly_j/l10n/app_localizations.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await LocalNotifications.init();
 
   Bloc.observer = MyBlocObserver();
   setup();

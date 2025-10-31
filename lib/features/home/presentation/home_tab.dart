@@ -12,7 +12,6 @@ import 'package:moodly_j/features/home/widgets/custom_button.dart';
 import 'package:moodly_j/features/home/widgets/custom_item.dart';
 import 'package:moodly_j/features/on_boarding_screen/presentation/cubit/user_cubit.dart';
 import 'package:moodly_j/features/on_boarding_screen/presentation/cubit/user_states.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:moodly_j/l10n/app_localizations.dart';
 
 // ignore: must_be_immutable

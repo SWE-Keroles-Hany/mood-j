@@ -1,5 +1,5 @@
+import 'package:flutter/widgets.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:moodly_j/l10n/app_localizations.dart';
 import 'package:timezone/timezone.dart' as tz;
 import 'package:timezone/data/latest.dart' as tz;
 
@@ -7,15 +7,18 @@ class LocalNotifications {
   static final FlutterLocalNotificationsPlugin
   _flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
-  //! => Initialization
-  static Future<void> init() async {
-    // طلب صلاحيات Android
-    await _flutterLocalNotificationsPlugin
+  static Future<bool> requestPermission() async {
+    final request = await _flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
           AndroidFlutterLocalNotificationsPlugin
         >()
         ?.requestNotificationsPermission();
+    if (request == null) return false;
+    return request;
+  }
 
+  //! => Initialization
+  static Future<void> init() async {
     InitializationSettings initializationSettings = InitializationSettings(
       android: AndroidInitializationSettings("@mipmap/ic_launcher"),
       iOS: DarwinInitializationSettings(),
@@ -51,6 +54,7 @@ class LocalNotifications {
     required String title,
     required String description,
   }) async {
+    await init();
     final scheduledDate = tz.TZDateTime(
       tz.local,
       DateTime.now().year,
@@ -72,7 +76,7 @@ class LocalNotifications {
   }
 
   //! Cancel Notification by ID
-  static Future<void> cancel(_) async {
-    await _flutterLocalNotificationsPlugin.cancel(1);
+  static Future<void> cancel() async {
+    await _flutterLocalNotificationsPlugin.cancelAll();
   }
 }

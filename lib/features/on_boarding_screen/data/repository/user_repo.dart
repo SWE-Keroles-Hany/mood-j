@@ -15,7 +15,4 @@ abstract class UserRepo {
 
   Future<Either<Failure, void>> changeImage({required String imgPath});
   Future<Either<Failure, void>> logOut();
-  Future<Either<Failure, void>> enbaleNotification({
-    required bool enbleNotification,
-  });
 }

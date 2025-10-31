@@ -12,7 +12,6 @@ import 'package:moodly_j/features/on_boarding_screen/presentation/cubit/user_sta
 import 'package:moodly_j/features/on_boarding_screen/presentation/init_screen.dart';
 import 'package:moodly_j/features/settings/widgets/notification_setting.dart';
 import 'package:moodly_j/l10n/app_localizations.dart';
-import 'package:moodly_j/l10n/app_localizations_ar.dart';
 
 class SettingsTab extends StatefulWidget {
   const SettingsTab({super.key});
@@ -59,6 +58,12 @@ class _SettingsTabState extends State<SettingsTab> {
               UiUtils.showLoadingIndicator(context);
             } else if (state is SuccessEnableNotificatoinState) {
               UiUtils.hideLoading(context);
+              LocalNotifications.showScheduledNotification(
+                title: AppLocalizations.of(context)!.reminder,
+                description: AppLocalizations.of(
+                  context,
+                )!.dontForgetToWriteToday,
+              );
             }
           },
           child: BlocListener<UserCubit, UserStates>(
@@ -154,35 +159,6 @@ class _SettingsTabState extends State<SettingsTab> {
                           ),
                           SizedBox(height: 25.h),
 
-                          /// ---------- Notification ----------
-                          NotificationSetting(
-                            reminderMe: reminderSelected,
-                            controller: notificationController,
-                            onChanged: (dynamic) async {
-                              setState(() {
-                                reminderSelected = !reminderSelected;
-                                reminder = reminderSelected ? "Off" : "On";
-                              });
-                              await LocalNotifications.init();
-
-                              await LocalNotifications.showScheduledNotification(
-                                title: AppLocalizations.of(context)!.reminder,
-                                description: AppLocalizations.of(
-                                  context,
-                                )!.dontForgetToWriteToday,
-                              );
-                              // await BlocProvider.of<UserCubit>(
-                              //   context,
-                              // ).enableNotification(
-                              //   enableNotification: reminderSelected,
-                              // );
-                            },
-                            subTitle: "Notification",
-                            title: localization.dailyReminder,
-                          ),
-                          SizedBox(height: 20.h),
-
-                          /// ---------- Language ----------
                           _buildCard(
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -242,7 +218,7 @@ class _SettingsTabState extends State<SettingsTab> {
                               ],
                             ),
                           ),
-                          SizedBox(height: 30.h),
+                          SizedBox(height: 10.h),
                           _buildCard(
                             child: GestureDetector(
                               onTap: () async {
@@ -303,21 +279,5 @@ class _SettingsTabState extends State<SettingsTab> {
       ),
       child: child,
     );
-  }
-
-  void dailyReminder(dynamic value, BuildContext context) async {
-    setState(() {
-      reminderSelected = !reminderSelected;
-      reminder = reminderSelected ? "Off" : "On";
-    });
-
-    await LocalNotifications.init();
-    await LocalNotifications.showScheduledNotification(
-      title: AppLocalizations.of(context)!.addMood,
-      description: AppLocalizations.of(context)!.dontForgetToWriteToday,
-    );
-    await BlocProvider.of<UserCubit>(
-      context,
-    ).enableNotification(enableNotification: reminderSelected);
   }
 }

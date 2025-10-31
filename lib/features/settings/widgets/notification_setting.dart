@@ -10,13 +10,13 @@ class NotificationSetting extends StatefulWidget {
     required this.onChanged,
     required this.subTitle,
     required this.title,
-    required this.reminderMe,
+    // required this.reminderMe,
   });
   final String title;
   final String subTitle;
   final ValueNotifier<bool>? controller;
   final void Function(dynamic)? onChanged;
-  final bool reminderMe;
+  // final bool reminderMe;
   @override
   State<NotificationSetting> createState() => _NotificationSettingState();
 }

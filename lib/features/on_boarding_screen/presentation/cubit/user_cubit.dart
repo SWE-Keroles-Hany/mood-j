@@ -17,14 +17,12 @@ class UserCubit extends Cubit<UserStates> {
   final ChangeImage _changeImage;
   final ChangeLanguage _changeLanguage;
   final ChangeUserName _changeUserName;
-  final EnableNotification _enableNotification;
 
   final LogOut _logOut;
 
   UserEntity? user;
 
   UserCubit(
-    this._enableNotification,
     this._logOut,
     this._createUser,
     this._isUserCreated,
@@ -43,21 +41,6 @@ class UserCubit extends Cubit<UserStates> {
       },
       (_) {
         emit(SuccessCreateUserState());
-      },
-    );
-  }
-
-  Future<void> enableNotification({required bool enableNotification}) async {
-    emit(LoadingEnableNotificatoinState());
-    final result = await _enableNotification.enbaleNotification(
-      enbleNotification: enableNotification,
-    );
-    result.fold(
-      (failure) {
-        emit(ErrorEnableNotificatoinState(failure.message));
-      },
-      (_) {
-        emit(SuccessEnableNotificatoinState());
       },
     );
   }

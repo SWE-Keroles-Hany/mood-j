@@ -67,7 +67,6 @@ Future<dynamic> startBottomSheet({
                               context,
                             ).createUser(
                               userEntity: UserEntity(
-                                enableNotification: 0,
                                 imgPath: "assets/icons/person.png",
                                 language: 'en',
                                 name: nameController.text,

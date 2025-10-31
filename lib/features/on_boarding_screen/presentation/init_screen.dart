@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:moodly_j/core/service/local_notifications.dart';
 import 'package:moodly_j/core/service_locator/get_it.dart';
 import 'package:moodly_j/features/home/presentation/home_screen.dart';
 import 'package:moodly_j/features/on_boarding_screen/presentation/cubit/user_cubit.dart';
 import 'package:moodly_j/features/on_boarding_screen/presentation/cubit/user_states.dart';
 import 'package:moodly_j/features/on_boarding_screen/presentation/screens/on_boarding_screen.dart';
+import 'package:moodly_j/l10n/app_localizations.dart';
+import 'package:moodly_j/l10n/app_localizations_ar.dart';
 
 class InitScreen extends StatefulWidget {
   const InitScreen({super.key});
@@ -20,6 +23,10 @@ class _InitScreenState extends State<InitScreen> {
   void initState() {
     getIt<UserCubit>().isUserCreated();
     super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      init(context);
+    });
   }
 
   @override
@@ -44,5 +51,18 @@ class _InitScreenState extends State<InitScreen> {
         },
       ),
     );
+  }
+
+  Future init(BuildContext context) async {
+    final result = await LocalNotifications.requestPermission();
+    if (result) {
+      await LocalNotifications.init();
+      await LocalNotifications.showScheduledNotification(
+        title: AppLocalizations.of(context)!.reminder,
+        description: AppLocalizations.of(context)!.dontForgetToWriteToday,
+      );
+    } else {
+      await LocalNotifications.cancel();
+    }
   }
 }

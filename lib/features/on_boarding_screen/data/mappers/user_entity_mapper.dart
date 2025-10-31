@@ -6,6 +6,5 @@ extension UserEntityMapper on UserEntity {
     name: name,
     language: language,
     imgPath: imgPath,
-    enableNotification: enableNotification,
   );
 }

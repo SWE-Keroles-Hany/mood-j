@@ -85,14 +85,5 @@ class SqlUserDataSource implements UserDataSource {
     }
   }
 
-  @override
-  Future<void> enableNotification({required bool enableNotification}) async {
-    try {
-      await localDatabase.updateUser({
-        "enableNotification": enableNotification,
-      });
-    } catch (error) {
-      throw AppException("Some Thing Went Wrong, try again");
-    }
-  }
+
 }
