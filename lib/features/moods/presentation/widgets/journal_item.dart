@@ -8,7 +8,7 @@ import 'package:moodly_j/features/moods/presentation/screens/journal_details.dar
 
 // ignore: must_be_immutable
 class JournalItem extends StatelessWidget {
-  JournalItem({super.key, required this.mood, required this.onDelete});
+  const JournalItem({super.key, required this.mood, required this.onDelete});
   final MoodEntity mood;
   final Function()? onDelete;
   @override

@@ -4,7 +4,6 @@ import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/change_ima
 import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/change_language.dart';
 import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/change_user_name.dart';
 import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/create_user.dart';
-import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/enable_notification.dart';
 import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/get_user.dart';
 import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/is_user_created.dart';
 import 'package:moodly_j/features/on_boarding_screen/domain/use_cases/log_out.dart';

@@ -8,7 +8,6 @@ import 'package:moodly_j/features/on_boarding_screen/presentation/cubit/user_cub
 import 'package:moodly_j/features/on_boarding_screen/presentation/cubit/user_states.dart';
 import 'package:moodly_j/features/on_boarding_screen/presentation/screens/on_boarding_screen.dart';
 import 'package:moodly_j/l10n/app_localizations.dart';
-import 'package:moodly_j/l10n/app_localizations_ar.dart';
 
 class InitScreen extends StatefulWidget {
   const InitScreen({super.key});

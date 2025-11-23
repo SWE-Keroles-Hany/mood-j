@@ -10,7 +10,6 @@ import 'package:moodly_j/core/ui/ui_uitils.dart';
 import 'package:moodly_j/features/on_boarding_screen/presentation/cubit/user_cubit.dart';
 import 'package:moodly_j/features/on_boarding_screen/presentation/cubit/user_states.dart';
 import 'package:moodly_j/features/on_boarding_screen/presentation/init_screen.dart';
-import 'package:moodly_j/features/settings/widgets/notification_setting.dart';
 import 'package:moodly_j/l10n/app_localizations.dart';
 
 class SettingsTab extends StatefulWidget {

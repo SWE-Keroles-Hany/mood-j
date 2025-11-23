@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moodly_j/core/bloc_observer.dart';
 import 'package:moodly_j/core/routes/app_routes.dart';
-import 'package:moodly_j/core/service/local_notifications.dart';
 import 'package:moodly_j/core/service_locator/get_it.dart';
 import 'package:moodly_j/core/theme/app_theme.dart';
 import 'package:moodly_j/features/moods/presentation/cubit/moods_cubti.dart';

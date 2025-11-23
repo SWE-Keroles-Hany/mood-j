@@ -63,6 +63,7 @@ class SqlUserDataSource implements UserDataSource {
     }
   }
 
+
   @override
   Future<void> isUserCreated() async {
     try {
@@ -84,6 +85,4 @@ class SqlUserDataSource implements UserDataSource {
       throw AppException("Some Thing Went Wrong, try again");
     }
   }
-
-
 }
