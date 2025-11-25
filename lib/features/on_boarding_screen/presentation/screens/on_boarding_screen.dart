@@ -1,15 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:moodly_j/core/theme/app_theme.dart';
-// import 'package:moodly_j/features/home/presentation/home_screen.dart';
-// import 'package:moodly_j/features/moods/presentation/widgets/elvated_button.dart';
 import 'package:moodly_j/features/on_boarding_screen/presentation/widgets/start_bottom_sheet.dart';
 import 'package:moodly_j/l10n/app_localizations.dart';
-// import 'package:moodly_j/features/settings/widgets/notification_setting.dart';
-// import 'package:moodly_j/features/settings/widgets/settign_item_lable.dart';
-// import '../widgets/custom_input_field.dart';
 
-// ignore: must_be_immutable
 class OnBoardingScreen extends StatefulWidget {
   static const String routeName = "OnBoardingScreen";
   const OnBoardingScreen({super.key});

@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:moodly_j/core/data_base/local_data_base.dart';
 import 'package:moodly_j/core/failure/app_exception.dart';
 import 'package:moodly_j/features/on_boarding_screen/data/models/user_model.dart';
@@ -13,7 +12,6 @@ class SqlUserDataSource implements UserDataSource {
     try {
       userModel.toMap();
       await localDatabase.createUser(userModel: userModel);
-      print(" in create =>  ${userModel.imgPath}");
     } catch (error) {
       log(error.toString());
       throw AppException("Some Thing Went Wrong, try again");
@@ -52,8 +50,6 @@ class SqlUserDataSource implements UserDataSource {
 
   @override
   Future<UserModel?> getUser() async {
-    //! all user moods --> lenght , most freq
-    //!
     try {
       final user = await localDatabase.getUser();
       return user;
@@ -62,7 +58,6 @@ class SqlUserDataSource implements UserDataSource {
       throw AppException("Some Thing Went Wrong, try again");
     }
   }
-
 
   @override
   Future<void> isUserCreated() async {

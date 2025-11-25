@@ -1,19 +1,23 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
+
 <!-- Permissions -->
 <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
 <uses-permission android:name="android.permission.USE_EXACT_ALARM"/>
 <uses-permission android:name="android.permission.USE_FULL_SCREEN_INTENT"/>
-<!-- ACCESS_NOTIFICATION_POLICY لو عاوز تتحكم في DND بس -->
-
-<application android:label="MoodJ" android:name="${applicationName}" android:icon="@mipmap/launcher_icon">
-    <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" android:exported="false" />
 
 
-<activity android:name=".MainActivity" android:exported="true" android:launchMode="singleTop" android:taskAffinity="" android:theme="@style/LaunchTheme" android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode" android:hardwareAccelerated="true" android:windowSoftInputMode="adjustResize">
+<!-- ACCESS_NOTIFICATION_POLICY لو عاوز تتحكم في DND -->
+
+<application android:label="MoodJ" android:name="${applicationName}" android:icon="@mipmap/launcher_icon" android:allowBackup="true" android:usesCleartextTraffic="true">
+
+<!-- Main Activity -->
+<activity android:name=".MainActivity" android:exported="true" android:launchMode="singleTop" android:theme="@style/LaunchTheme" android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode" android:hardwareAccelerated="true" android:windowSoftInputMode="adjustResize">
 
 <meta-data android:name="io.flutter.embedding.android.NormalTheme" android:resource="@style/NormalTheme" />
+
+
 
 
 
@@ -22,15 +26,20 @@
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
 </activity>
+
 <meta-data android:name="flutterEmbedding" android:value="2" />
 
 
-<!-- Local Notifications Receivers -->
+
+<!-- Flutter Local Notifications Receivers -->
+<receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationReceiver" android:exported="false"/>
 <receiver android:name="com.dexterous.flutterlocalnotifications.receivers.ActionBroadcastReceiver" android:exported="true"/>
 <receiver android:name="com.dexterous.flutterlocalnotifications.receivers.DismissedReceiver" android:exported="true"/>
 <receiver android:name="com.dexterous.flutterlocalnotifications.receivers.NotificationReceiver" android:exported="true"/>
 <receiver android:name="com.dexterous.flutterlocalnotifications.receivers.ScheduleReceiver" android:exported="true"/>
 <receiver android:name="com.dexterous.flutterlocalnotifications.receivers.TimeZoneChangedReceiver" android:exported="true"/>
+
+
 
 <receiver android:name="com.dexterous.flutterlocalnotifications.ScheduledNotificationBootReceiver" android:exported="false">
     <intent-filter>
@@ -41,8 +50,12 @@
     </intent-filter>
 </receiver>
 
+<!-- Foreground Service -->
 <service android:name="com.dexterous.flutterlocalnotifications.ForegroundService" android:exported="false" android:stopWithTask="false" android:foregroundServiceType="dataSync" />
 
 
+
+
 </application>
+
 </manifest>

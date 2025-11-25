@@ -1,4 +1,4 @@
-package com.example.moodly_j
+package com.keroles.moodJ
 
 import io.flutter.embedding.android.FlutterActivity
 
