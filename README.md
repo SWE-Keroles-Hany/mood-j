@@ -4,6 +4,10 @@
   <b>log, monitor, and analyze their emotions</b> easily through text, emoji, photo, or voice notes.
 </p>
 
+<p align="center">
+  📱 <b>Download APK:</b> <a href="https://drive.google.com/file/d/156OAYmilOGKKlj1tM6YuXoLoXBjpX1DW/view?usp=drive_link" target="_blank">Click here to install Mood J</a>
+</p>
+
 <hr/>
 
 <h2>🚀 Features</h2>
