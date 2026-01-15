@@ -12,7 +12,7 @@
   <li>😄 Record moods with text, emoji, photo, or voice notes</li>
   <li>📊 View mood statistics and insights over time</li>
   <li>⏰ Local notifications to remind users to log their mood</li>
-  <li>🌐 Multi-language support (Localization)</li>
+  <li>🌐 Multi-language support (Localization / L10N)</li>
   <li>🧑‍💻 User-friendly and responsive UI</li>
   <li>⚡ Clean architecture for maintainability and scalability</li>
 </ul>
@@ -31,26 +31,25 @@
 
 <hr/>
 
-<h2>📱 Screenshots</h2>
-<p>📸 Screenshots will be added soon.</p>
-
-<hr/>
-
 <h2>📂 Project Structure</h2>
 <pre>
 lib/
  ├── core/
- │   ├── constants
+ │   ├── database
+ │   ├── failure
+ │   ├── routes
+ │   ├── service
+ │   ├── service_locator
  │   ├── theme
- │   ├── utils
- │   └── widgets
+ │   └── ui
  │
  ├── features/
+ │   ├── home
  │   ├── moods
- │   ├── stats
- │   └── notifications
+ │   ├── onBoarding_screen
+ │   └── settings
  │
- └── main.dart
+ └── L10N
 </pre>
 
 <hr/>
@@ -104,6 +103,7 @@ This project demonstrates <b>real-world Flutter concepts</b> such as:
   <li>State management with Cubit</li>
   <li>Local SQLite data handling</li>
   <li>Clean Architecture implementation</li>
+  <li>Localization support (L10N)</li>
   <li>Responsive and user-friendly UI</li>
 </ul>
 <p>If you like the project, feel free to ⭐ the repo!</p>
