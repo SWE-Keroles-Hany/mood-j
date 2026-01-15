@@ -5,7 +5,11 @@
 </p>
 
 <p align="center">
-  📱 <b>Download APK:</b> <a href="https://drive.google.com/file/d/156OAYmilOGKKlj1tM6YuXoLoXBjpX1DW/view?usp=drive_link" target="_blank">Click here to install Mood J</a>
+  📱 <b style="font-size: 20px; color: #FF5722;">Download APK:</b> 
+  <a href="https://drive.google.com/file/d/156OAYmilOGKKlj1tM6YuXoLoXBjpX1DW/view?usp=drive_link" 
+     target="_blank" style="font-size: 20px; font-weight: bold; color: #FF5722;">
+     Click here to install Mood J
+  </a>
 </p>
 
 <hr/>
